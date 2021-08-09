@@ -1,0 +1,16 @@
+PODS:
+  - YAPComponents (0.0.1)
+
+DEPENDENCIES:
+  - YAPComponents (from `../`)
+
+EXTERNAL SOURCES:
+  YAPComponents:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  YAPComponents: f56044fd8e7c80e27af666ff6a025fe0c23ae170
+
+PODFILE CHECKSUM: a3cd7114063923ac6425cd510a8c88cb9fb26bed
+
+COCOAPODS: 1.10.1
