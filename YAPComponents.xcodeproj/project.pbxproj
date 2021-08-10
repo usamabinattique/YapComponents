@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		568B7C3A26C28316008D5DDC /* AppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568B7C3926C28316008D5DDC /* AppButton.swift */; };
 		7DAFB51926BD731800DDBC11 /* YAPComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DAFB50F26BD731800DDBC11 /* YAPComponents.framework */; };
 		7DAFB51E26BD731900DDBC11 /* YAPComponentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAFB51D26BD731900DDBC11 /* YAPComponentsTests.swift */; };
 		7DAFB52026BD731900DDBC11 /* YAPComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DAFB51226BD731800DDBC11 /* YAPComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -24,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		568B7C3926C28316008D5DDC /* AppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButton.swift; sourceTree = "<group>"; };
 		7DAFB50F26BD731800DDBC11 /* YAPComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YAPComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DAFB51226BD731800DDBC11 /* YAPComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YAPComponents.h; sourceTree = "<group>"; };
 		7DAFB51326BD731800DDBC11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,6 +54,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		568B7C3B26C285D5008D5DDC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		568B7C3C26C285DD008D5DDC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				7DAFB56526C0EED200DDBC11 /* DefaultTextField.swift */,
+				568B7C3926C28316008D5DDC /* AppButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		7DAFB50526BD731800DDBC11 = {
 			isa = PBXGroup;
 			children = (
@@ -73,7 +91,8 @@
 		7DAFB51126BD731800DDBC11 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				7DAFB56526C0EED200DDBC11 /* DefaultTextField.swift */,
+				568B7C3C26C285DD008D5DDC /* Components */,
+				568B7C3B26C285D5008D5DDC /* Extensions */,
 				7DAFB51326BD731800DDBC11 /* Info.plist */,
 				7DAFB51226BD731800DDBC11 /* YAPComponents.h */,
 			);
@@ -199,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DAFB56626C0EED200DDBC11 /* DefaultTextField.swift in Sources */,
+				568B7C3A26C28316008D5DDC /* AppButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
