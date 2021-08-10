@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '11.4'
+
+target 'YAPComponents_Example' do
+  pod 'YAPComponents', :path => '../'
+
+  target 'YAPComponents_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
