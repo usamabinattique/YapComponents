@@ -28,7 +28,7 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://bitbucket.org/mb28/ios-yap-ui-kit.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '11.4'
+  s.ios.deployment_target = '11.0'
 
   s.source_files = 'YAPComponents/Classes/**/*'
   
