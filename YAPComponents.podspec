@@ -39,4 +39,16 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  
+  s.static_framework = true
+  
+  s.dependency 'RxSwift'
+  s.dependency 'RxCocoa'
+  s.dependency 'PhoneNumberKit'
+  s.dependency 'SDWebImage'
+  s.dependency 'SwiftyGif'
+  s.dependency 'RxSwiftExt'
+  s.dependency 'RxDataSources'
+  s.dependency 'GoogleMaps'
+  #s.dependency 'GooglePlaces'
 end
