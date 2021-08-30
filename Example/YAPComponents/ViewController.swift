@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YAPComponents
 
 class ViewController: UIViewController {
 
