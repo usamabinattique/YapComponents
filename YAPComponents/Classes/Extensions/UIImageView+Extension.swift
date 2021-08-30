@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIImageView {
+public extension UIImageView {
     @discardableResult func setImage(_ name:String,
                                      rendringMode:UIImage.RenderingMode) -> Self {
         image = UIImage(named: name)?.withRenderingMode(rendringMode)

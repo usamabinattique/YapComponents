@@ -9,7 +9,7 @@ import UIKit
 
 let BASE_SCREEN_WIDTH:CGFloat = 400
 
-extension UIScreen {
+public extension UIScreen {
     static var size:CGSize {
         return UIScreen.main.bounds.size
     }
@@ -49,17 +49,17 @@ extension UIScreen {
 }
 
 
-extension CGFloat {
+public extension CGFloat {
     var dynamic:CGFloat {
         return self * UIScreen.roIWidth / BASE_SCREEN_WIDTH
     }
 }
-extension Int {
+public extension Int {
     var dynamic:CGFloat {
         return CGFloat(self) * UIScreen.roIWidth / BASE_SCREEN_WIDTH
     }
 }
-extension Double {
+public extension Double {
     var dynamic:CGFloat {
         return CGFloat(self) * UIScreen.roIWidth / BASE_SCREEN_WIDTH
     }
