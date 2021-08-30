@@ -49,7 +49,7 @@ public extension UIFactory {
     }
 }
 
-extension UIFactory {
+public extension UIFactory {
     class func makeImageView(name:String,
                              tintColor:UIColor = .black,
                              contentMode:UIView.ContentMode = .scaleAspectFit,
