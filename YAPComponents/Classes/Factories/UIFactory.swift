@@ -72,3 +72,12 @@ extension UIFactory {
             .setImage(image, rendringMode: rendringMode)
     }
 }
+
+public extension UIFactory {
+    class func makeCollectionView(with color:UIColor,
+                                  collectionViewLayout:UICollectionViewLayout
+                                  ) -> CollectionView {
+        return CollectionView(collectionViewLayout: collectionViewLayout)
+            .setBackgroundColor(color)
+    }
+}
