@@ -42,7 +42,7 @@ public extension UIFactory {
             .setLineBreakMode(lineBreakMode)
             .setText(text ?? "")
             .setAlpha(alpha)
-            .setTranslatesAutoresizingMaskIntoConstraints(false)
+            .setTranslatesAutoresizingMask(false)
             .setAdjustsFontSizeToFitWidth(adjustFontSize)
             .setInsets(insects)
             .setTextColor(color ?? .darkText)

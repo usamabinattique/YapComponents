@@ -118,29 +118,32 @@ public extension UIView {
 }
 
 public extension UIView {
+    enum PeriorityType:Hashable {
+        case hugging,
+             compression,
+             huggingAndCompression
+    }
     
-    @discardableResult func setContentHugging(
-        _ priority:Float,
-        axix:NSLayoutConstraint.Axis
+    @discardableResult func setPriority(
+        _ priority: Float,
+        of type:PeriorityType,
+        for axis: NSLayoutConstraint.Axis
     ) -> Self {
-        setContentHuggingPriority(UILayoutPriority(priority), for: axix)
+        switch type {
+        case .hugging:
+            self.setContentHuggingPriority( UILayoutPriority(priority), for: axis )
+        case .compression:
+            self.setContentCompressionResistancePriority( UILayoutPriority(priority), for: axis )
+        case .huggingAndCompression:
+            self.setContentHuggingPriority( UILayoutPriority(priority), for: axis )
+            self.setContentCompressionResistancePriority( UILayoutPriority(priority), for: axis )
+        }
         return self
     }
     
-    @discardableResult func setContentCompression(
-        _ resistancePriority:Float,
-        axix:NSLayoutConstraint.Axis
-    ) -> Self {
-        setContentCompressionResistancePriority(UILayoutPriority(resistancePriority), for: axix)
-        return self
-    }
-    
-    @discardableResult func setTranslatesAutoresizingMaskIntoConstraints(
-        _ value:Bool
-    ) -> Self {
+    @discardableResult func setTranslatesAutoresizingMask(_ value:Bool) -> Self {
         translatesAutoresizingMaskIntoConstraints = value
         return self
     }
-    
 }
 
