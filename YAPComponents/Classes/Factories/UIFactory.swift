@@ -61,7 +61,7 @@ public extension UIFactory {
             .setImage(name, rendringMode: rendringMode)
     }
     
-    class func makeImageView(image:UIImage,
+    class func makeImageView(image:UIImage?,
                              tintColor:UIColor = .black,
                              contentMode:UIView.ContentMode = .scaleAspectFit,
                              rendringMode:UIImage.RenderingMode = .alwaysOriginal
