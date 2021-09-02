@@ -24,8 +24,7 @@ public extension UIFactory {
 public extension UIFactory {
     class func makeLabel (
         with color: UIColor? = nil,
-        textStyle style: AppTextStyle = .title1,
-        fontWeight weight: UIFont.Weight = .regular,
+        font:UIFont = UIFont.systemFont(ofSize: 16),
         alignment: NSTextAlignment = .left,
         numberOfLines: Int = 1,
         lineBreakMode: NSLineBreakMode = .byTruncatingTail,
@@ -36,7 +35,7 @@ public extension UIFactory {
     ) -> Label {
         
         return Label()
-            .setFont(font: UIFont.appFont(for: style, weight: weight, scale: 1.dynamic))
+            .setFont(font: font)
             .setTextAlligned(alignment)
             .setNumberOfLines(numberOfLines)
             .setLineBreakMode(lineBreakMode)
