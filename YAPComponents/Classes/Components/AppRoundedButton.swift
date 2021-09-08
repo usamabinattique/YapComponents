@@ -113,7 +113,8 @@ public class AppRoundedButton: UIButton {
     
     private func style() {
         titleLabel?.textAlignment = .center
-        titleLabel?.textColor = UIColor.white
+        titleLabel?.textColor = .darkText
+        backgroundColor = .blue
     }
     
     private func addIcon() {

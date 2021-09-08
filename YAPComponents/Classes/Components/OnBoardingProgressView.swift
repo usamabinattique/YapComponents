@@ -13,8 +13,9 @@ public class OnBoardingProgressView: UIView {
     public override var tintColor: UIColor! {
         set {
             super.tintColor = newValue
-            backButton.backgroundColor = newValue
             progressView.progressTintColor = newValue
+            backButton.backgroundColor = newValue
+            if isCompleted { completionView.backgroundColor = newValue }
         }
         get {
             return super.tintColor
@@ -23,8 +24,8 @@ public class OnBoardingProgressView: UIView {
     
     public var disabledColor:UIColor! {
         set {
-            progressView.backgroundColor = newValue.withAlphaComponent(0.15)
-            completionView.backgroundColor = newValue.withAlphaComponent(0.15)
+            progressView.backgroundColor = newValue.withAlphaComponent(0.16)
+            if !isCompleted { completionView.backgroundColor = newValue.withAlphaComponent(0.16) }
         }
         get {
             return progressView.backgroundColor?.withAlphaComponent(1)
@@ -85,7 +86,7 @@ public class OnBoardingProgressView: UIView {
         }
     }
     
-    fileprivate var isCompleted: Bool = false
+    fileprivate lazy var isCompleted: Bool = false
     
     public override init(frame: CGRect) {
         super.init(frame: frame)

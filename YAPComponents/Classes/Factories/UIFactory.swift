@@ -60,7 +60,7 @@ public extension UIFactory {
             .setImage(name, rendringMode: rendringMode)
     }
     
-    class func makeImageView(image:UIImage?,
+    class func makeImageView(image:UIImage? = nil,
                              tintColor:UIColor = .black,
                              contentMode:UIView.ContentMode = .scaleAspectFit,
                              rendringMode:UIImage.RenderingMode = .alwaysOriginal
@@ -78,5 +78,19 @@ public extension UIFactory {
                                   ) -> CollectionView {
         return CollectionView(collectionViewLayout: collectionViewLayout)
             .setBackgroundColor(color)
+    }
+}
+
+public extension UIFactory {
+    class func makeOnBoardingProgressView(
+        with backImage:UIImage?,
+        completionImage:UIImage?
+    ) -> OnBoardingProgressView {
+        let progressView = OnBoardingProgressView.init()
+        
+        progressView.backImage = backImage
+        progressView.completionImage = completionImage
+        
+        return progressView
     }
 }
