@@ -8,7 +8,21 @@
 
 import UIKit
 
-public enum AppRoundedTextFieldValidation {
+public extension UIFactory {
+    class func makeAppRoundedTextField(with font:UIFont, errorFont:UIFont, placeholder:String? = nil, validation:AppRoundedTextFieldValidation, validImage:UIImage?, inValidImage:UIImage?, leftIcon:UIImage? = nil) -> AppRoundedTextField {
+        let textField = AppRoundedTextField()
+        textField.font = font
+        textField.errorLabel.font = errorFont
+        textField.placeholder = placeholder
+        textField.validInputImage = validImage?.withRenderingMode(.alwaysTemplate)
+        textField.invalidInputImage = inValidImage?.withRenderingMode(.alwaysTemplate)
+        textField.leftIcon.setImage(leftIcon, for: .normal)
+        textField.setValidation(validation)
+        return textField
+    }
+}
+
+public enum AppRoundedTextFieldValidation:Hashable {
     case valid
     case invalid
     case neutral
@@ -16,24 +30,48 @@ public enum AppRoundedTextFieldValidation {
 
 public class AppRoundedTextField: UITextField {
     
-    public lazy var iconImage: UIButton = {
-        let icon = UIButton()
-        icon.isHidden = true
-        icon.translatesAutoresizingMaskIntoConstraints = false
-        return icon
-    }()
+    public var secondaryColor:UIColor = .darkText { didSet {
+        textColor = primaryColor
+        setupPlaceholder()
+    }}
+    
+    
+    public var primaryColor:UIColor = .gray { didSet {
+        if validation == .valid { validationImage.backgroundColor = primaryColor }
+    
+    }}
+    
+    
+    public var errorTextColor: UIColor = .red { didSet {
+        errorLabel.textColor = errorTextColor
+    }}
+    
+    public var errorBorderColor: UIColor = .red { didSet {
+        if validation == .invalid {
+            validationImage.backgroundColor = errorBorderColor
+            backgroundView.layer.borderColor = errorBorderColor.cgColor
+        }
+    }}
+    
+    public var bgColor = UIColor.lightGray { didSet { //.withAlphaComponent(0.36)
+        backgroundView.backgroundColor = bgColor.withAlphaComponent(0.36)
+    }}
     
     public lazy var errorLabel: UILabel = {
         let label = UILabel()
-        //label.font = UIFont.appFont(forTextStyle: .micro)
-        //label.textColor = UIColor.appColor(ofType: .greyDark)
         label.textAlignment = .center
         label.isHidden = true
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
+    public lazy var leftIcon: UIButton = {
+        let icon = UIButton()
+        icon.isHidden = true
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        return icon
+    }()
     
     fileprivate lazy var validationImage: UIImageView = {
         let validationImage = UIImageView()
@@ -45,11 +83,9 @@ public class AppRoundedTextField: UITextField {
     fileprivate lazy var backgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .red
         view.layer.zPosition = -1
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(becomeFirstResponder)))
         view.layer.borderWidth = 1.6
-        view.backgroundColor = bgColor
         view.layer.borderColor = bgColor.cgColor
         return view
     }()
@@ -58,39 +94,13 @@ public class AppRoundedTextField: UITextField {
     
     public var invalidInputImage: UIImage? = UIImage() //.init(named: "icon_invalid", in: yapKitBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     public var validInputImage: UIImage? = UIImage() //.init(named: "icon_check", in: yapKitBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
-    public var displaysIcon: Bool = false {
-        didSet {
-            iconImage.isHidden = !displaysIcon
-        }
-    }
+    public var displaysIcon: Bool = false { didSet {
+        leftIcon.isHidden = !displaysIcon
+    }}
     
-    public var icon: UIImage? {
-        didSet {
-            iconImage.setImage(icon, for: .normal)
-            iconImage.isHidden = !displaysIcon
-        }
-    }
-    
-    public var errorTextColor: UIColor = .gray /*.greyDark */ {
-        didSet {
-            self.errorLabel.textColor = errorTextColor
-        }
-    }
-    
-    public var bgColor = UIColor.lightGray { //.appColor(ofType: .greyLight).withAlphaComponent(0.36) {
-        didSet {
-            self.backgroundColor = bgColor
-        }
-    }
-    
-    public var placeholderColor: UIColor = UIColor.darkGray { //.greyDark {
-        didSet {
-            let placeholder = self.placeholder
-            self.placeholder = placeholder
-        }
-    }
-    
-    private var validation: AppRoundedTextFieldValidation = .neutral
+    public var validation: AppRoundedTextFieldValidation = .neutral { didSet {
+        setValidation(validation)
+    }}
     
     // MARK: Initialization
     
@@ -112,17 +122,19 @@ public class AppRoundedTextField: UITextField {
     
     public override func becomeFirstResponder() -> Bool {
         let responder = super.becomeFirstResponder()
-        backgroundView.layer.borderColor = (responder ? UIColor.blue:bgColor).cgColor //appColor(ofType: .primary) : bgColor).cgColor
+        backgroundView.layer.borderColor = (responder ? primaryColor:bgColor).cgColor //appColor(ofType: .primary) : bgColor).cgColor
         return responder
     }
     
     public override var placeholder: String? {
-        didSet {
-            guard  let `placeholder` = placeholder else { return }
-            let attributedPlaceholder = NSMutableAttributedString(string: placeholder)
-            attributedPlaceholder.addAttributes([.foregroundColor: self.placeholderColor], range: NSRange(location: 0, length: placeholder.count))
-            self.attributedPlaceholder = attributedPlaceholder
-        }
+        didSet { setupPlaceholder() }
+    }
+    
+    fileprivate func setupPlaceholder() {
+        guard  let `placeholder` = placeholder else { return }
+        let attributedPlaceholder = NSMutableAttributedString(string: placeholder)
+        attributedPlaceholder.addAttributes([.foregroundColor: self.bgColor], range: NSRange(location: 0, length: placeholder.count))
+        self.attributedPlaceholder = attributedPlaceholder
     }
 }
 
@@ -166,7 +178,7 @@ fileprivate extension AppRoundedTextField {
         //font = UIFont.appFont(forTextStyle: .large)
         
         addSubview(backgroundView)
-        addSubview(iconImage)
+        addSubview(leftIcon)
         addSubview(validationImage)
         addSubview(errorLabel)
     }
@@ -179,10 +191,10 @@ fileprivate extension AppRoundedTextField {
         ]
         
         let iconImageConstraits = [
-            iconImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            iconImage.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
-            iconImage.widthAnchor.constraint(equalToConstant: 24),
-            iconImage.heightAnchor.constraint(equalToConstant: 24)
+            leftIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            leftIcon.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
+            leftIcon.widthAnchor.constraint(equalToConstant: 24),
+            leftIcon.heightAnchor.constraint(equalToConstant: 24)
         ]
         
         let validationImageConstraits = [
@@ -206,29 +218,28 @@ fileprivate extension AppRoundedTextField {
     func render() {
         backgroundView.layer.cornerRadius = backgroundView.bounds.size.height/2
         backgroundView.clipsToBounds = true
-        iconImage.layer.cornerRadius = iconImage.bounds.size.height/2
-        iconImage.clipsToBounds = true
+        leftIcon.layer.cornerRadius = leftIcon.bounds.size.height/2
+        leftIcon.clipsToBounds = true
     }
 }
 
 // MARK: Control functions
 
 public extension AppRoundedTextField {
-    func setValidation(_ validation: AppRoundedTextFieldValidation) {
-        self.validation = validation
+    fileprivate func setValidation(_ validation: AppRoundedTextFieldValidation) {
         switch validation {
         case .invalid:
-            backgroundView.layer.borderColor = UIColor.red.cgColor //appColor(ofType: .error).cgColor
+            backgroundView.layer.borderColor = errorBorderColor.cgColor
             validationImage.image = invalidInputImage
-            validationImage.tintColor = UIColor.red //.appColor(ofType: .error)
+            validationImage.tintColor = errorTextColor
             errorLabel.isHidden = false
         case .valid:
-            backgroundView.layer.borderColor = (isFirstResponder ? UIColor.blue:bgColor).cgColor //appColor(ofType: .primary).cgColor : bgColor.cgColor
+            backgroundView.layer.borderColor = (isFirstResponder ? primaryColor:bgColor).cgColor
             validationImage.image = validInputImage
-            validationImage.tintColor = .blue //.appColor(ofType: .primary)
+            validationImage.tintColor = primaryColor
             errorLabel.isHidden = true
         case .neutral:
-            backgroundView.layer.borderColor = isFirstResponder ? UIColor.blue.cgColor:bgColor.cgColor //appColor(ofType: .primary).cgColor : bgColor.cgColor
+            backgroundView.layer.borderColor = isFirstResponder ? primaryColor.cgColor:bgColor.cgColor
             validationImage.image = nil
             errorLabel.isHidden = true
         }
