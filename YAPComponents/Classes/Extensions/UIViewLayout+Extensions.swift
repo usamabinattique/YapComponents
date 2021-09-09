@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+/*
 //MARK: - Layout Constraints
 public extension UIView {
     
@@ -116,6 +116,7 @@ public extension UIView {
         return self
     }
 }
+*/
 
 public extension UIView {
     enum PeriorityType:Hashable {

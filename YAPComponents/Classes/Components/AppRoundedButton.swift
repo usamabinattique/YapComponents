@@ -55,7 +55,7 @@ public class AppRoundedButton: UIButton {
         didSet {
             guard oldValue != isEnabled else { return }
             UIView.animate(withDuration: 0.3) { [unowned self] in
-//                self.alpha = self.isEnabled ? 1 : 0.3
+                self.alpha = self.isEnabled ? 1 : 0.3
                 self.backgroundColor = self.isEnabled ? enabledBackgroundColor : disabledBackgroundColor
             
             }

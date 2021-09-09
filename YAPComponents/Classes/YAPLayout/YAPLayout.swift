@@ -33,7 +33,11 @@ public extension UIView {
 // MARK: Dimension constraints
 
 public extension UIView {
-    @discardableResult func width(_ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+    @discardableResult func width(
+        _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+        constant: CGFloat,
+        priority: UILayoutPriority = .required,
+        initTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil) -> Self {
         
         let constraint: NSLayoutConstraint
         
@@ -45,13 +49,18 @@ public extension UIView {
         case .lessThanOrEqualTo:
             constraint = widthAnchor.constraint(lessThanOrEqualToConstant: constant)
         }
-        
         constraint.priority = priority
         constraint.isActive = true
+        
+        constraint.toPointer(pointer)
+        
         return self
     }
     
-    @discardableResult func height(_ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+    @discardableResult func height(
+        _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+        constant: CGFloat, priority: UILayoutPriority = .required,
+        initTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil) -> Self {
         
         let constraint: NSLayoutConstraint
         
@@ -66,6 +75,8 @@ public extension UIView {
         
         constraint.priority = priority
         constraint.isActive = true
+        
+        constraint.toPointer(pointer)
         return self
     }
     
@@ -153,8 +164,14 @@ public extension UIView {
         return horizontallyCenterWith(view).verticallyCenterWith(view)
     }
     
-    @discardableResult func horizontallyCenterWith(_ view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
-        return pinEdge(.centerX, toEdge: .centerX, ofView: view, constantModifier, constant: constant, priority: priority)
+    @discardableResult func horizontallyCenterWith(
+        _ view: UIView,
+        _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+        constant: CGFloat = 0,
+        priority: UILayoutPriority = .required,
+        initTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil) -> Self {
+        
+        return pinEdge(.centerX, toEdge: .centerX, ofView: view, constantModifier, constant: constant, priority: priority, initTo: pointer)
     }
     
     @discardableResult func verticallyCenterWith(_ view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
@@ -165,19 +182,26 @@ public extension UIView {
         return pinEdge(edge, toEdge: edge, ofView: view, constantModifier, constant: constant, priority: priority)
     }
     
-    @discardableResult func pinEdge(_ edge1: YAPLayoutEdge, toEdge edge2: YAPLayoutEdge, ofView view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
-        
+    @discardableResult func pinEdge(
+        _ edge1: YAPLayoutEdge,
+        toEdge edge2: YAPLayoutEdge,
+        ofView view: UIView,
+        _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+        constant: CGFloat = 0,
+        priority: UILayoutPriority = .required,
+        initTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil
+    ) -> Self {
         if edge1.axis != edge2.axis {
             assertionFailure("YAPLayout Error: all edges of same constraint must be of same axis")
         }
         
         switch edge1.axis {
         case .horizontal:
-            return pinHorizontalEdge(edge1, toEdge: edge2, ofView: view, constantModifier, constant: constant, priority: priority)
+            return pinHorizontalEdge(edge1, toEdge: edge2, ofView: view, constantModifier, constant: constant, priority: priority, initTo: pointer)
         case .vertical:
-            return pinVerticalEdge(edge1, toEdge: edge2, ofView: view, constantModifier, constant: constant, priority: priority)
+            return pinVerticalEdge(edge1, toEdge: edge2, ofView: view, constantModifier, constant: constant, priority: priority, initTo: pointer)
         case .dimensions:
-            return pinDimensionEdge(edge1, toEdge: edge2, ofView: view, constantModifier, constant: constant, priority: priority)
+            return pinDimensionEdge(edge1, toEdge: edge2, ofView: view, constantModifier, constant: constant, priority: priority, initTo: pointer)
         }
     }
 }
@@ -185,7 +209,15 @@ public extension UIView {
 // MARK: Private @discardableResult functions
 
 private extension UIView {
-    @discardableResult func pinHorizontalEdge(_ edge1: YAPLayoutEdge, toEdge edge2: YAPLayoutEdge, ofView view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    @discardableResult func pinHorizontalEdge(
+        _ edge1: YAPLayoutEdge,
+        toEdge edge2: YAPLayoutEdge,
+        ofView view: UIView,
+        _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+        constant: CGFloat = 0,
+        priority: UILayoutPriority = .required,
+        initTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil
+    ) -> Self {
         
         let constraint: NSLayoutConstraint
         
@@ -212,10 +244,20 @@ private extension UIView {
         constraint.priority = priority
         constraint.isActive = true
         
+        constraint.toPointer(pointer)
+        
         return self
     }
     
-    @discardableResult func pinVerticalEdge(_ edge1: YAPLayoutEdge, toEdge edge2: YAPLayoutEdge, ofView view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    @discardableResult func pinVerticalEdge (
+        _ edge1: YAPLayoutEdge,
+        toEdge edge2: YAPLayoutEdge,
+        ofView view: UIView,
+        _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+        constant: CGFloat = 0,
+        priority: UILayoutPriority = .required,
+        initTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil
+    ) -> Self {
         
         let constraint: NSLayoutConstraint
         
@@ -246,11 +288,21 @@ private extension UIView {
         constraint.priority = priority
         constraint.isActive = true
         
+        constraint.toPointer(pointer)
+        
         return self
     }
     
-    @discardableResult func pinDimensionEdge(_ edge1: YAPLayoutEdge, toEdge edge2: YAPLayoutEdge, ofView view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, mutliplier: CGFloat = 1, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
-        
+    @discardableResult func pinDimensionEdge(
+        _ edge1: YAPLayoutEdge,
+        toEdge edge2: YAPLayoutEdge,
+        ofView view: UIView,
+        _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+        mutliplier: CGFloat = 1,
+        constant: CGFloat = 0,
+        priority: UILayoutPriority = .required,
+        initTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil
+    ) -> Self {
         let constraint: NSLayoutConstraint
         
         switch constantModifier {
@@ -264,6 +316,7 @@ private extension UIView {
         
         constraint.priority = priority
         constraint.isActive = true
+        constraint.toPointer(pointer)
         
         return self
     }
