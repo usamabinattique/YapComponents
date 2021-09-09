@@ -36,6 +36,7 @@ public class Button: UIButton {
     }
 
     func updateUI() {
+        translatesAutoresizingMaskIntoConstraints = false
         setNeedsDisplay()
     }
 }

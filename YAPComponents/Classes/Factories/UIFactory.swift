@@ -11,10 +11,12 @@ public class UIFactory {}
 
 public extension UIFactory {
     class func makeView(with color:UIColor = .clear,
+                        alpha:CGFloat = 1,
                         cornerRadious:CGFloat = 0,
                         borderColor:UIColor = .clear,
                         borderWidth:CGFloat = 0 ) -> View {
         return View()
+            .setAlpha(alpha)
             .setBackgroundColor(color)
             .setCornerRadius(cornerRadious)
             .setBorder(borderColor, width: borderWidth)
@@ -92,5 +94,14 @@ public extension UIFactory {
         progressView.completionImage = completionImage
         
         return progressView
+    }
+}
+
+
+public extension UIFactory {
+    class func makeButton(with font:UIFont) -> Button  {
+        let button = Button()
+        button.titleLabel?.font = font
+        return button
     }
 }
