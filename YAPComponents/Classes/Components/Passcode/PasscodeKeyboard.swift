@@ -10,10 +10,23 @@ import UIKit
 
 open class PasscodeKeyboard: UIView {
     
+    open var themeColor: UIColor = .darkGray { didSet {//.appColor(ofType: .primary)
+        one.themeColor = themeColor
+        two.themeColor = themeColor
+        three.themeColor = themeColor
+        four.themeColor = themeColor
+        five.themeColor = themeColor
+        six.themeColor = themeColor
+        seven.themeColor = themeColor
+        eight.themeColor = themeColor
+        nine.themeColor = themeColor
+        zero.themeColor = themeColor
+        backButton.backgroundColor = themeColor
+    }}
+    
     public let minimumKeyboardHeight: CGFloat = 305
     let buttonRowSpacing: CGFloat = 25
     let buttonColumnSpacing: CGFloat = 25
-    let themeColor: UIColor = .blue //.appColor(ofType: .primary)
     let buttonTitleFontSize: CGFloat = 28
     let passcodeValue: String = ""
     var biometryEnabled: Bool = false
@@ -34,7 +47,7 @@ open class PasscodeKeyboard: UIView {
     public lazy var backButton: UIButton = {
         let button = UIButton()
         //button.setImage(UIImage(named: "icon_delete_purple", in: yapKitBundle, compatibleWith: nil)?.asTemplate, for: .normal)
-        button.backgroundColor = .blue //button.tintColor = .primary
+        //button.backgroundColor = themeColor //button.tintColor = .primary
         
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -42,9 +55,8 @@ open class PasscodeKeyboard: UIView {
     
     public lazy var biomatryButton: UIButton = {
         let button = UIButton()
-            .setBackgroundColor(.green) // temporary for visibility
         ///let type = BiometricsManager().deviceBiometryType
-        var imageName: String = "icon_touch_id" //""
+        //var imageName: String = "icon_touch_id" //""
         ///if case BiometryType.faceID = type { imageName = "icon_face_id"} else { imageName = "icon_touch_id" }
         ///button.setImage(UIImage(named: imageName, in: yapKitBundle, compatibleWith: nil), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false

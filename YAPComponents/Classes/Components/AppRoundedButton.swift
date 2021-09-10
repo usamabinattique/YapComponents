@@ -8,6 +8,16 @@
 
 import Foundation
 
+public extension UIFactory {
+    class func makeAppRoundedButton(with font:UIFont?, title:String? = nil) -> AppRoundedButton {
+        let button = AppRoundedButton()
+        button.title = title
+        button.titleLabel?.font = font
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
+}
+
 public enum AppRoundedButtonIconPosition {
     case right
     case left

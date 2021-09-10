@@ -66,14 +66,12 @@ public class CodeVerificationTextField: UITextField {
     @objc func textChanged() {
         _ = textLabels.map { [unowned self] in
             $0.highlight = false
-            guard let index = self.textLabels.firstIndex(of: $0), self.text?.count ?? 0 > index else {
+            guard let index:Int = self.textLabels.firstIndex(of: $0), text?.count ?? 0 > index else {
                 $0.text = nil
                 return
             }
-            ///Will fix this latter
-            ///$0.text = textAtIndex = self.text?[index]
-            
-            
+
+            $0.text = text?.stringAt(id: index)
         }
         highlightNext()
     }
@@ -180,10 +178,10 @@ public class BorderedLabel: UILabel {
     
     private func commonInit() {
         translatesAutoresizingMaskIntoConstraints = false
-        ///font = UIFont.appFont(forTextStyle: .title1)
+        font = UIFont.systemFont(ofSize: 28)
         textAlignment = .center
-        textColor = UIColor.blue ///.appColor(ofType: .primaryDark)
-        backgroundColor = UIColor.darkGray ///.appColor(ofType: .greyLight).withAlphaComponent(0.36)
+        textColor = #colorLiteral(red: 0.1529999971, green: 0.1330000013, blue: 0.3840000033, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.8549019608, green: 0.878000021, blue: 0.9409999847, alpha: 1).withAlphaComponent(0.36)
         layer.borderColor = UIColor.clear.cgColor
         layer.borderWidth = 1.0
         layer.cornerRadius = 5
@@ -192,7 +190,13 @@ public class BorderedLabel: UILabel {
     
     public var highlight: Bool = false {
         didSet {
-            layer.borderColor = highlight ? UIColor.blue.cgColor:UIColor.clear.cgColor ///.appColor(ofType: .primary).cgColor : UIColor.clear.cgColor
+            layer.borderColor = highlight ? #colorLiteral(red: 0.368627451, green: 0.2078431373, blue: 0.6941176471, alpha: 1) : UIColor.clear.cgColor
         }
+    }
+}
+
+fileprivate extension String {
+    func stringAt(id: Int) -> String {
+        return String(self[index(startIndex, offsetBy: id)])
     }
 }

@@ -57,6 +57,16 @@ public extension UIView {
         return self
     }
     
+    @discardableResult func heightEqualTo(view: UIView, multiplier:CGFloat = 1, constant:CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        
+        let constraint: NSLayoutConstraint = heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplier, constant: constant)
+        
+        constraint.priority = priority
+        constraint.isActive = true
+        
+        return self
+    }
+    
     @discardableResult func height(
         _ constantModifier: YAPLayoutConstantModifier = .equalTo,
         constant: CGFloat, priority: UILayoutPriority = .required,

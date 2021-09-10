@@ -25,7 +25,6 @@ public extension UIFactory {
 
 public extension UIFactory {
     class func makeLabel (
-        with color: UIColor? = nil,
         font:UIFont = UIFont.systemFont(ofSize: 16),
         alignment: NSTextAlignment = .left,
         numberOfLines: Int = 1,
@@ -46,7 +45,6 @@ public extension UIFactory {
             .setTranslatesAutoresizingMask(false)
             .setAdjustsFontSizeToFitWidth(adjustFontSize)
             .setInsets(insects)
-            .setTextColor(color ?? .darkText)
     }
 }
 
@@ -99,9 +97,10 @@ public extension UIFactory {
 
 
 public extension UIFactory {
-    class func makeButton(with font:UIFont) -> Button  {
+    class func makeButton(with font:UIFont, title:String? = nil) -> UIButton  {
         let button = Button()
         button.titleLabel?.font = font
+        button.setTitle(title, for: .normal)
         return button
     }
 }

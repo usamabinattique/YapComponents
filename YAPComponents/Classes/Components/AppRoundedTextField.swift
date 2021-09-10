@@ -9,7 +9,21 @@
 import UIKit
 
 public extension UIFactory {
-    class func makeAppRoundedTextField(with font:UIFont, errorFont:UIFont, placeholder:String? = nil, validation:AppRoundedTextFieldValidation, validImage:UIImage?, inValidImage:UIImage?, leftIcon:UIImage? = nil) -> AppRoundedTextField {
+    class func makeAppRoundedTextField(
+        with font:UIFont? = UIFont.systemFont(ofSize: 16),
+        errorFont:UIFont? = UIFont.systemFont(ofSize: 12),
+        placeholder:String? = nil,
+        validation:AppRoundedTextFieldValidation? = .neutral,
+        validImage:UIImage? = nil,
+        inValidImage:UIImage? = nil,
+        leftIcon:UIImage? = nil,
+        displaysIcon:Bool = false,
+        returnKeyType:UIReturnKeyType = .default,
+        autocorrectionType:UITextAutocorrectionType = .default,
+        autocapitalizationType:UITextAutocapitalizationType = .sentences,
+        keyboardType:UIKeyboardType = .default,
+        delegate:UITextFieldDelegate? = nil
+    ) -> AppRoundedTextField {
         let textField = AppRoundedTextField()
         textField.font = font
         textField.errorLabel.font = errorFont
@@ -17,7 +31,12 @@ public extension UIFactory {
         textField.validInputImage = validImage?.withRenderingMode(.alwaysTemplate)
         textField.invalidInputImage = inValidImage?.withRenderingMode(.alwaysTemplate)
         textField.leftIcon.setImage(leftIcon, for: .normal)
-        textField.setValidation(validation)
+        textField.validation = validation ?? .neutral
+        textField.displaysIcon = displaysIcon
+        textField.returnKeyType = returnKeyType
+        textField.delegate = delegate
+        textField.autocorrectionType = autocorrectionType
+        textField.keyboardType = keyboardType
         return textField
     }
 }
@@ -31,7 +50,7 @@ public enum AppRoundedTextFieldValidation:Hashable {
 public class AppRoundedTextField: UITextField {
     
     public var secondaryColor:UIColor = .darkText { didSet {
-        textColor = primaryColor
+        textColor = secondaryColor
         setupPlaceholder()
     }}
     
@@ -133,7 +152,7 @@ public class AppRoundedTextField: UITextField {
     fileprivate func setupPlaceholder() {
         guard  let `placeholder` = placeholder else { return }
         let attributedPlaceholder = NSMutableAttributedString(string: placeholder)
-        attributedPlaceholder.addAttributes([.foregroundColor: self.bgColor], range: NSRange(location: 0, length: placeholder.count))
+        attributedPlaceholder.addAttributes([.foregroundColor: self.secondaryColor.withAlphaComponent(0.5)], range: NSRange(location: 0, length: placeholder.count))
         self.attributedPlaceholder = attributedPlaceholder
     }
 }
