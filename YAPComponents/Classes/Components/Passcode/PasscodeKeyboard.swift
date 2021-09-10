@@ -21,7 +21,7 @@ open class PasscodeKeyboard: UIView {
         eight.themeColor = themeColor
         nine.themeColor = themeColor
         zero.themeColor = themeColor
-        backButton.backgroundColor = themeColor
+        backButton.tintColor = themeColor
     }}
     
     public let minimumKeyboardHeight: CGFloat = 305
