@@ -12,6 +12,27 @@ public class Label: UILabel {
     var textInsets = UIEdgeInsets.zero {
         didSet { invalidateIntrinsicContentSize() }
     }
+    
+    public override var text: String? {
+        set {
+            if spacing == nil && self.lineSpacing == nil {
+                super.text  = newValue
+            } else {
+                self.setAttributedText(newValue ?? "")
+            }
+        }
+        get {
+            return super.attributedText?.string ?? super.text
+        }
+    }
+    
+    var spacing:Float? = nil { didSet {
+        
+    }}
+    
+    var lineSpacing:CGFloat? = nil { didSet {
+        
+    }}
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,5 +94,21 @@ public extension Label {
     var bottomTextInset: CGFloat {
         get { return textInsets.bottom }
         set { textInsets.bottom = newValue }
+    }
+}
+
+extension Label {
+    fileprivate func setAttributedText(_ string:String) {
+        let attributedString = NSMutableAttributedString(string: string, attributes: [.font:font!, .foregroundColor:textColor!])
+        if let spacing = spacing {
+            attributedString.addAttributes([.kern : spacing], range: string.range )
+        }
+        
+        if let lineSpacing = lineSpacing {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = lineSpacing
+            attributedString.addAttributes([.paragraphStyle : paragraphStyle, .font:font!, .foregroundColor:textColor!], range: string.range )
+        }
+        attributedText = attributedString
     }
 }

@@ -17,7 +17,9 @@ public class PasscodeDottedView: UIView {
     private var views: [UIView] = []
     private let dotsSpacing: CGFloat = 10
     private let borderWidth: CGFloat = 1.0
-    public var themeColor: UIColor = .blue //.appColor(ofType: .primary)
+    public var themeColor: UIColor = .blue { didSet {
+        stackView.arrangedSubviews.forEach {[weak self] in $0.backgroundColor = self?.themeColor }
+    }}
     
     private var roundedViewSize: CGFloat = 16
     private lazy var stackView: UIStackView = {
