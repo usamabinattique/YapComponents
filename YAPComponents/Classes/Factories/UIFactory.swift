@@ -30,12 +30,14 @@ public extension UIFactory {
         numberOfLines: Int = 1,
         lineBreakMode: NSLineBreakMode = .byTruncatingTail,
         text: String? = nil,
+        charSpace: Float? = nil,
+        lineSpace: CGFloat? = nil,
         alpha: CGFloat = 1.0,
         adjustFontSize: Bool = false,
         insects:UIEdgeInsets = .zero
     ) -> Label {
         
-        return Label()
+        let label = Label()
             .setFont(font: font)
             .setTextAlligned(alignment)
             .setNumberOfLines(numberOfLines)
@@ -45,6 +47,11 @@ public extension UIFactory {
             .setTranslatesAutoresizingMask(false)
             .setAdjustsFontSizeToFitWidth(adjustFontSize)
             .setInsets(insects)
+        
+        if let space = charSpace { label.spacing = space }
+        if let space = lineSpace { label.lineSpacing = space }
+        
+        return label
     }
 }
 

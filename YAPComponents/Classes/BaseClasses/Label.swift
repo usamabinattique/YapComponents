@@ -9,29 +9,29 @@ import UIKit
 
 public class Label: UILabel {
 
-    var textInsets = UIEdgeInsets.zero {
+    open var textInsets = UIEdgeInsets.zero {
         didSet { invalidateIntrinsicContentSize() }
     }
     
-    public override var text: String? {
-        set {
-            if spacing == nil && self.lineSpacing == nil {
-                super.text  = newValue
-            } else {
-                self.setAttributedText(newValue ?? "")
-            }
-        }
-        get {
-            return super.attributedText?.string ?? super.text
-        }
+    open override var text: String? {
+        set { super.text = newValue; makeUI()}
+        get { return super.attributedText?.string ?? super.text }
+    }
+    public override var font: UIFont! {
+        set { super.font = newValue; makeUI()}
+        get { return super.font }
+    }
+    public override var textColor: UIColor! {
+        set { super.textColor = newValue; makeUI()}
+        get { return super.textColor }
     }
     
-    var spacing:Float? = nil { didSet {
-        
+    open var spacing:Float? = nil { didSet {
+        makeUI()
     }}
     
-    var lineSpacing:CGFloat? = nil { didSet {
-        
+    open var lineSpacing:CGFloat? = nil { didSet {
+        makeUI()
     }}
 
     override init(frame: CGRect) {
@@ -46,12 +46,14 @@ public class Label: UILabel {
 
     func makeUI() {
         layer.masksToBounds = true
-        numberOfLines = 1
         updateUI()
     }
 
     func updateUI() {
         setNeedsDisplay()
+        if !(spacing == nil && self.lineSpacing == nil) {
+            self.setAttributedText(text ?? "")
+        }
     }
 }
 
