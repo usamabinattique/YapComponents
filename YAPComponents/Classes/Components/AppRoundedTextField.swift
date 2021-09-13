@@ -60,16 +60,12 @@ public class AppRoundedTextField: UITextField {
     
     }}
     
-    
-    public var errorTextColor: UIColor = .red { didSet {
-        errorLabel.textColor = errorTextColor
-    }}
-    
-    public var errorBorderColor: UIColor = .red { didSet {
+    public var errorColor: UIColor = .red { didSet {
         if validation == .invalid {
-            validationImage.backgroundColor = errorBorderColor
-            backgroundView.layer.borderColor = errorBorderColor.cgColor
+            validationImage.backgroundColor = errorColor
+            backgroundView.layer.borderColor = errorColor.cgColor
         }
+        errorLabel.textColor = errorColor
     }}
     
     public var bgColor = UIColor.lightGray { didSet { //.withAlphaComponent(0.36)
@@ -248,13 +244,13 @@ public extension AppRoundedTextField {
     fileprivate func setValidation(_ validation: AppRoundedTextFieldValidation) {
         switch validation {
         case .invalid:
-            backgroundView.layer.borderColor = errorBorderColor.cgColor
-            validationImage.image = invalidInputImage
-            validationImage.tintColor = errorTextColor
+            backgroundView.layer.borderColor = errorColor.cgColor
+            validationImage.image = invalidInputImage?.asTemplate
+            validationImage.tintColor = errorColor
             errorLabel.isHidden = false
         case .valid:
             backgroundView.layer.borderColor = (isFirstResponder ? primaryColor:bgColor).cgColor
-            validationImage.image = validInputImage
+            validationImage.image = validInputImage?.asTemplate
             validationImage.tintColor = primaryColor
             errorLabel.isHidden = true
         case .neutral:
