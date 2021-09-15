@@ -10,7 +10,7 @@ import Foundation
 //import RxSwift
 //import RxCocoa
 
-public class UIAppSwitch: UIControl {
+public class AppSwitch: UIControl {
     
     // MARK: Nob
     
@@ -84,7 +84,7 @@ public class UIAppSwitch: UIControl {
 
 // MARK: View setup
 
-private extension UIAppSwitch {
+private extension AppSwitch {
     func setupViews() {
         addSubview(nob)
         
@@ -112,7 +112,7 @@ private extension UIAppSwitch {
 
 // MARK: Animations
 
-private extension UIAppSwitch {
+private extension AppSwitch {
     func animateChange() {
         isOn ? onAnimation() : offAnimation()
     }
@@ -153,7 +153,7 @@ private extension UIAppSwitch {
 
 // MARK: Touch handling
 
-extension UIAppSwitch {
+extension AppSwitch {
     
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let location = touches.first?.location(in: self) else { return }

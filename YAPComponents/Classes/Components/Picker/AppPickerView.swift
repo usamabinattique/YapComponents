@@ -12,8 +12,9 @@ import Foundation
 
 open class AppPickerView: UIView {
     
-    private lazy var toolbar: UIView = {
-        return self.getToolBar(target: self, done: #selector(doneAction), cancel: #selector(cancelAction))
+    public lazy var toolbaar:ToolBaar = {
+        let toolBaar = ToolBaar()
+        return toolBaar
     }()
     
     public lazy var pickerView: UIPickerView = {
@@ -32,93 +33,108 @@ open class AppPickerView: UIView {
         commonInit()
     }
     
-    private func commonInit() {
-        translatesAutoresizingMaskIntoConstraints = false
-        setupViews()
-        setupConstraints()
-    }
-    
-    // MARK: Actions
-    @objc open func doneAction() {
-        
+    public func getSelectedIndexes() -> [(row: Int, component: Int)] {
         var indexes = [(row: Int, component: Int)]()
         for i in 0..<pickerView.numberOfComponents {
             indexes.append((row: pickerView.selectedRow(inComponent: i), component: i))
         }
-        //doneSubject.onNext(indexes)
+        return indexes
     }
+}
 
-    @objc open func cancelAction() {
-        //cancelSubject.onNext(())
+fileprivate extension AppPickerView {
+    func commonInit() {
+        translatesAutoresizingMaskIntoConstraints = false
+        setupViews()
+        setupConstraints()
     }
+    // MARK: Actions
 }
 
 // MARK: View setup
 
 private extension AppPickerView {
     func setupViews() {
-        addSubview(toolbar)
+        addSubview(toolbaar)
         addSubview(pickerView)
     }
     
     func setupConstraints() {
-        
-        toolbar
+        toolbaar
             .alignEdgesWithSuperview([.left, .top, .right])
             .height(constant: 44)
         
         pickerView
-            .toBottomOf(toolbar)
+            .toBottomOf(toolbaar)
             .alignEdgesWithSuperview([.left, .right, .bottom])
     }
 }
 
 // MARK: Toolbar
 
-private extension AppPickerView {
-    func getToolBar(target: Any?, done: Selector?, cancel: Selector?) -> UIView {
+public class ToolBaar:UIView {
+    
+    public let doneButton:UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .clear
+        button.setTitle("common_button_done"/*.localized*/, for: .normal)
+        button.setTitleColor(.blue /*.primaryDark*/, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        return button
+    }()
+    
+    public let cancelButton:UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .clear
+        button.setTitle("common_button_cancel"/*.localized*/, for: .normal)
+        button.setTitleColor(.blue/*.primaryDark*/, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        return button
+    }()
+    
+    public override init(frame: CGRect = .zero) {
+        super.init(frame: frame)
+        makeUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        makeUI()
+    }
+    
+    public func makeUI() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = .white
+        setupViews()
+    }
+    
+    func setupViews() {
+        let separator:UIView = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = .darkGray //.greyDark
+            return view
+        }()
         
-        let toolbar =  UIView()
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        toolbar.backgroundColor = .white
+        self.addSubview(separator)
+        self.addSubview(cancelButton)
+        self.addSubview(doneButton)
         
-        let separator = UIView()
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        separator.backgroundColor = .darkGray //.greyDark
-        
-        toolbar.addSubview(separator)
-        separator
-            .alignEdgesWithSuperview([.left, .top, .right])
-            .height(constant: 0.5)
-        
-        let cancelButton = UIButton()
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.backgroundColor = .clear
-        cancelButton.setTitle("common_button_cancel"/*.localized*/, for: .normal)
-        cancelButton.setTitleColor(.blue/*.primaryDark*/, for: .normal)
-        cancelButton.titleLabel?.font = .systemFont(ofSize: 16)
-        if let cancel = cancel {
-            cancelButton.addTarget(target, action: cancel, for: .touchUpInside)
-        }
-        
-        toolbar.addSubview(cancelButton)
-        cancelButton
-            .alignEdgesWithSuperview([.left, .top, .bottom], constants: [20, 0, 0])
-        
-        let doneButton = UIButton()
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        doneButton.backgroundColor = .clear
-        doneButton.setTitle("common_button_done"/*.localized*/, for: .normal)
-        doneButton.setTitleColor(.blue /*.primaryDark*/, for: .normal)
-        doneButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-        if let done = done {
-            doneButton.addTarget(target, action: done, for: .touchUpInside)
-        }
-        
-        toolbar.addSubview(doneButton)
-        doneButton
-            .alignEdgesWithSuperview([.right, .top, .bottom], constants: [20, 0, 0])
-        
-        return toolbar
+        NSLayoutConstraint.activate([
+            separator.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            separator.topAnchor.constraint(equalTo: self.topAnchor),
+            separator.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            separator.heightAnchor.constraint(equalToConstant: 0.5),
+            
+            cancelButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            cancelButton.topAnchor.constraint(equalTo: self.topAnchor),
+            cancelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            doneButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            doneButton.topAnchor.constraint(equalTo: self.topAnchor),
+            doneButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
     }
 }

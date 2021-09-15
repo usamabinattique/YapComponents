@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class UIAppSwitchFactory {
+public extension UIFactory {
     
-    public static func createUIAppSwitch(isOn: Bool = false, onTintColor: UIColor = .blue /*.primary*/, offTintColor: UIColor = .lightGray /*.greyLight*/, onImage: UIImage? /*= UIImage.sharedImage(named: "icon_check_primary_dark")?.asTemplate*/, offImage: UIImage? = nil) -> UIAppSwitch {
+    public static func makeAppSwitch(isOn: Bool = false, onTintColor: UIColor = .blue /*.primary*/, offTintColor: UIColor = .lightGray /*.greyLight*/, onImage: UIImage? = nil /*= UIImage.sharedImage(named: "icon_check_primary_dark")?.asTemplate*/, offImage: UIImage? = nil) -> AppSwitch {
         
-        let appSwitch = UIAppSwitch()
+        let appSwitch = AppSwitch()
         appSwitch.onTintColor = onTintColor
         appSwitch.offTintColor = offTintColor
         appSwitch.onImage = onImage
