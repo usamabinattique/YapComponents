@@ -28,12 +28,23 @@ public class AppSwitch: UIControl {
         }
     }
     
-    public var onImage: UIImage? = nil
-    public var offImage: UIImage? = nil
+    public var onImage: UIImage? = nil { didSet {
+        if isOn { nob.image = onImage }
+    }}
     
-    public var onTintColor: UIColor = .blue //.primary
+    public var offImage: UIImage? = nil { didSet {
+        if !isOn { nob.image = offImage }
+    }}
     
-    public var offTintColor: UIColor = .lightGray //.greyLight
+    public var onTintColor: UIColor = .blue { didSet { if isOn {
+        self.backgroundColor = self.onTintColor
+        self.nob.tintColor = self.onTintColor
+    }}}
+    
+    public var offTintColor: UIColor = .lightGray{ didSet { if !isOn {
+        self.backgroundColor = self.offTintColor
+        self.nob.tintColor = self.offTintColor
+    }}}
     
     private var touchStartLocation: CGFloat = 0
     private var animating: Bool = false

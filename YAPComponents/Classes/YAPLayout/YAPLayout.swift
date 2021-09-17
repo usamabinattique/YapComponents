@@ -166,8 +166,8 @@ public extension UIView {
         return pinEdge(.bottom, toEdge: .top, ofView: view, constantModifier, constant: constant, priority: priority)
     }
     
-    @discardableResult func toBottomOf(_ view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
-        return pinEdge(.top, toEdge: .bottom, ofView: view, constantModifier, constant: constant, priority: priority)
+    @discardableResult func toBottomOf(_ view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required, initTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil) -> Self {
+        return pinEdge(.top, toEdge: .bottom, ofView: view, constantModifier, constant: constant, priority: priority, initTo: pointer)
     }
     
     @discardableResult func alignCenterWith(_ view: UIView, priority: UILayoutPriority = .required) -> Self {

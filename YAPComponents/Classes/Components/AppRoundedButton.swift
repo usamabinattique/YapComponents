@@ -57,16 +57,20 @@ public class AppRoundedButton: UIButton {
         }
     }
 
-    public var enabledBackgroundColor: UIColor?
+    public var enabledBackgroundColor: UIColor? { didSet {
+        if isEnabled { self.backgroundColor = enabledBackgroundColor }
+    }}
 
-    public var disabledBackgroundColor: UIColor?
+    public var disabledBackgroundColor: UIColor? { didSet {
+        if !isEnabled { self.backgroundColor = disabledBackgroundColor }
+    }}
     
     public override var isEnabled: Bool {
         didSet {
             guard oldValue != isEnabled else { return }
             UIView.animate(withDuration: 0.3) { [unowned self] in
                 self.alpha = self.isEnabled ? 1 : 0.3
-                self.backgroundColor = self.isEnabled ? enabledBackgroundColor : disabledBackgroundColor
+                self.backgroundColor = isEnabled ? enabledBackgroundColor : disabledBackgroundColor
             
             }
         }

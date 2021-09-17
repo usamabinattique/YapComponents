@@ -43,12 +43,15 @@ public extension UIFactory {
 
 public enum AppRoundedTextFieldValidation:Hashable {
     case valid
-    case invalid
+    case invalid(_ message:String?)
     case neutral
 }
 
 public class AppRoundedTextField: UITextField {
     
+    var shouldChangeText:Bool = true
+    
+    //Properties
     public var secondaryColor:UIColor = .darkText { didSet {
         textColor = secondaryColor
         setupPlaceholder()
@@ -61,7 +64,7 @@ public class AppRoundedTextField: UITextField {
     }}
     
     public var errorColor: UIColor = .red { didSet {
-        if validation == .invalid {
+        if case .invalid = validation {
             validationImage.backgroundColor = errorColor
             backgroundView.layer.borderColor = errorColor.cgColor
         }
@@ -135,6 +138,7 @@ public class AppRoundedTextField: UITextField {
         setupConstraints()
     }
     
+    @discardableResult
     public override func becomeFirstResponder() -> Bool {
         let responder = super.becomeFirstResponder()
         backgroundView.layer.borderColor = (responder ? primaryColor:bgColor).cgColor //appColor(ofType: .primary) : bgColor).cgColor
@@ -243,10 +247,11 @@ fileprivate extension AppRoundedTextField {
 public extension AppRoundedTextField {
     fileprivate func setValidation(_ validation: AppRoundedTextFieldValidation) {
         switch validation {
-        case .invalid:
+        case .invalid(let message):
             backgroundView.layer.borderColor = errorColor.cgColor
             validationImage.image = invalidInputImage?.asTemplate
             validationImage.tintColor = errorColor
+            if let message = message { errorLabel.text = message }
             errorLabel.isHidden = false
         case .valid:
             backgroundView.layer.borderColor = (isFirstResponder ? primaryColor:bgColor).cgColor
@@ -260,4 +265,3 @@ public extension AppRoundedTextField {
         }
     }
 }
-
