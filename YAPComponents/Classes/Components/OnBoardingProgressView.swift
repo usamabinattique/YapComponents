@@ -15,7 +15,10 @@ public class OnBoardingProgressView: UIView {
             super.tintColor = newValue
             progressView.progressTintColor = newValue
             backButton.backgroundColor = newValue
-            if isCompleted { completionView.backgroundColor = newValue }
+            if isCompleted {
+                completionView.backgroundColor = newValue
+                completionView.tintColor = .white
+            }
         }
         get {
             return super.tintColor
@@ -25,7 +28,10 @@ public class OnBoardingProgressView: UIView {
     public var disabledColor:UIColor! {
         set {
             progressView.backgroundColor = newValue.withAlphaComponent(0.16)
-            if !isCompleted { completionView.backgroundColor = newValue.withAlphaComponent(0.16) }
+            if !isCompleted {
+                completionView.backgroundColor = newValue.withAlphaComponent(0.16)
+                completionView.tintColor = newValue.withAlphaComponent(0.5)
+            }
         }
         get {
             return progressView.backgroundColor?.withAlphaComponent(1)

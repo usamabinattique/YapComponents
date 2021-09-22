@@ -8,6 +8,18 @@
 
 import UIKit
 
+public extension UIFactory {
+    static func makePasscodeKeyboard(font:UIFont,
+                                     biomatryImage:UIImage? = nil,
+                                     backImage:UIImage? = nil) -> PasscodeKeyboard {
+        let keyboard = PasscodeKeyboard()
+        keyboard.font = font
+        keyboard.biomatryButton.setImage(biomatryImage, for: .normal)
+        keyboard.backButton.setImage(backImage, for: .normal)
+        return keyboard
+    }
+}
+
 open class PasscodeKeyboard: UIView {
     
     open var themeColor: UIColor = .darkGray { didSet {//.appColor(ofType: .primary)
@@ -22,6 +34,19 @@ open class PasscodeKeyboard: UIView {
         nine.themeColor = themeColor
         zero.themeColor = themeColor
         backButton.tintColor = themeColor
+    }}
+    
+    open var font:UIFont = UIFont.systemFont(ofSize: 22) { didSet {
+        one.font = font
+        two.font = font
+        three.font = font
+        four.font = font
+        five.font = font
+        six.font = font
+        seven.font = font
+        eight.font = font
+        nine.font = font
+        zero.font = font
     }}
     
     public let minimumKeyboardHeight: CGFloat = 305

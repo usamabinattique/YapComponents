@@ -28,6 +28,12 @@ public class UICircularButton: UIButton {
         }
     }
     
+    public var font:UIFont = UIFont.systemFont(ofSize: 22) {
+        didSet {
+            titleLabel?.font = font
+        }
+    }
+    
     public init(title: String? = nil, themeColor: UIColor = .white) {
         self.themeColor = themeColor
         self.buttonTitle = title
