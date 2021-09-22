@@ -104,8 +104,9 @@ public extension UIFactory {
 
 
 public extension UIFactory {
-    class func makeButton(with font:UIFont, title:String? = nil) -> UIButton  {
+    class func makeButton(with font:UIFont, backgroundColor:UIColor? = nil, title:String? = nil) -> UIButton  {
         let button = Button()
+        if let backgroundColor = backgroundColor { button.backgroundColor = backgroundColor }
         button.titleLabel?.font = font
         button.setTitle(title, for: .normal)
         return button

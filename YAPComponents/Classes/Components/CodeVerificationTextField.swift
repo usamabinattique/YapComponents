@@ -10,6 +10,16 @@ import UIKit
 //import RxSwift
 //import RxCocoa
 
+public extension UIFactory {
+    static func makeCodeVerificationTextField( fields:Int = 6,
+                                        delegate:UITextFieldDelegate? = nil ) -> CodeVerificationTextField {
+        let codeTextField = CodeVerificationTextField()
+        codeTextField.numberOfTextFields = fields
+        codeTextField.delegate = delegate
+        return codeTextField
+    }
+}
+
 public class CodeVerificationTextField: UITextField {
     
     private lazy var stackView: UIStackView = {
