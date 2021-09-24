@@ -28,11 +28,7 @@ public class UICircularButton: UIButton {
         }
     }
     
-    public var font:UIFont = UIFont.systemFont(ofSize: 22) {
-        didSet {
-            titleLabel?.font = font
-        }
-    }
+    public var buttonFont: UIFont = UIFont.systemFont(ofSize: 22)
     
     public init(title: String? = nil, themeColor: UIColor = .white) {
         self.themeColor = themeColor
@@ -60,7 +56,7 @@ public class UICircularButton: UIButton {
         clipsToBounds = true
         backgroundColor = .clear
         layer.borderWidth = 1.5
-        ///titleLabel?.font =  UIFont.appFont(forTextStyle: .title1)
+        titleLabel?.font =  buttonFont
         translatesAutoresizingMaskIntoConstraints = false
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIFactory {
-    static func makePasscodeKeyboard(font:UIFont,
+    static func makePasscodeKeyboard(font: UIFont,
                                      biomatryImage:UIImage? = nil,
                                      backImage:UIImage? = nil) -> PasscodeKeyboard {
         let keyboard = PasscodeKeyboard()
@@ -36,17 +36,17 @@ open class PasscodeKeyboard: UIView {
         backButton.tintColor = themeColor
     }}
     
-    open var font:UIFont = UIFont.systemFont(ofSize: 22) { didSet {
-        one.font = font
-        two.font = font
-        three.font = font
-        four.font = font
-        five.font = font
-        six.font = font
-        seven.font = font
-        eight.font = font
-        nine.font = font
-        zero.font = font
+    open var font: UIFont = UIFont.systemFont(ofSize: 22) { didSet {
+        one.buttonFont = font
+        two.buttonFont = font
+        three.buttonFont = font
+        four.buttonFont = font
+        five.buttonFont = font
+        six.buttonFont = font
+        seven.buttonFont = font
+        eight.buttonFont = font
+        nine.buttonFont = font
+        zero.buttonFont = font
     }}
     
     public let minimumKeyboardHeight: CGFloat = 305
