@@ -16,10 +16,10 @@ open class KeyboardAvoidingViewController: UIViewController {
     private var keyboardConstraint: NSLayoutConstraint?
     public var keyboardAvoidingBottomOffset: CGFloat = 0
     public var keyboardHeight: CGFloat = 0
-    
+
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         //guard UIScreen.screenType != .iPhone5 else { return }
         
         keyboardConstraint = view.constraints.filter{ $0.identifier == "keyboardAvoidingConstraint" }.first
@@ -49,9 +49,9 @@ private extension KeyboardAvoidingViewController {
                 
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             constraint.constant = keyboardSize.height + 15 - keyboardAvoidingBottomOffset
-            UIView.animate(withDuration: 0.25) { [unowned self] in
+            //UIView.animate(withDuration: 0.25) { [unowned self] in
                 self.view.layoutAllSubviews()
-            }
+            //}
         }
     }
 
@@ -60,9 +60,9 @@ private extension KeyboardAvoidingViewController {
         guard let constraint = keyboardConstraint else { return }
         
         constraint.constant = constant
-        UIView.animate(withDuration: 0.25) { [unowned self] in
+        //UIView.animate(withDuration: 0.25) { [unowned self] in
             self.view.layoutAllSubviews()
-        }
+        //}
     }
 }
 
