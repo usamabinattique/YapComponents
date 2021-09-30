@@ -109,6 +109,7 @@ extension Label {
         if let lineSpacing = lineSpacing {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = lineSpacing
+            paragraphStyle.alignment = textAlignment
             attributedString.addAttributes([.paragraphStyle : paragraphStyle, .font:font!, .foregroundColor:textColor!], range: string.range )
         }
         attributedText = attributedString
