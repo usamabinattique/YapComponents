@@ -22,7 +22,7 @@ public extension UIFactory {
 
 open class PasscodeKeyboard: UIView {
     
-    open var themeColor: UIColor = .darkGray { didSet {//.appColor(ofType: .primary)
+    open var themeColor: UIColor = .darkGray { didSet { // .appColor(ofType: .primary)
         one.themeColor = themeColor
         two.themeColor = themeColor
         three.themeColor = themeColor
@@ -54,7 +54,11 @@ open class PasscodeKeyboard: UIView {
     let buttonColumnSpacing: CGFloat = 25
     let buttonTitleFontSize: CGFloat = 28
     let passcodeValue: String = ""
-    var biometryEnabled: Bool = false
+
+    public var biometryEnabled: Bool = false { didSet {
+        biomatryButton.alpha = biometryEnabled ? 1:0
+        biomatryButton.isEnabled = biometryEnabled
+    }}
 
     
     // MARK: KEYBOARD KEYS
@@ -80,6 +84,8 @@ open class PasscodeKeyboard: UIView {
     
     public lazy var biomatryButton: UIButton = {
         let button = UIButton()
+        button.alpha = 0
+        button.isEnabled = false
         ///let type = BiometricsManager().deviceBiometryType
         //var imageName: String = "icon_touch_id" //""
         ///if case BiometryType.faceID = type { imageName = "icon_face_id"} else { imageName = "icon_touch_id" }
@@ -88,11 +94,11 @@ open class PasscodeKeyboard: UIView {
         return button
     }()
     
-    public lazy var dummyButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    //public lazy var dummyButton: UIButton = {
+    //    let button = UIButton()
+    //    button.translatesAutoresizingMaskIntoConstraints = false
+    //    return button
+    //}()
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -181,7 +187,7 @@ open class PasscodeKeyboard: UIView {
         stackViewThree.addArrangedSubview(eight)
         stackViewThree.addArrangedSubview(nine)
         
-        self.biometryEnabled ? stackViewFour.addArrangedSubview(biomatryButton) : stackViewFour.addArrangedSubview(dummyButton)
+        stackViewFour.addArrangedSubview(biomatryButton) //: stackViewFour.addArrangedSubview(dummyButton)
         stackViewFour.addArrangedSubview(zero)
         stackViewFour.addArrangedSubview(backButton)
         
