@@ -80,6 +80,16 @@ public extension UIFactory {
 }
 
 public extension UIFactory {
+    class func makeTableView (
+        allowsSelection: Bool = true
+    ) -> TableView {
+        let tableView = TableView()
+        tableView.allowsSelection = allowsSelection
+        return tableView
+    }
+}
+
+public extension UIFactory {
     class func makeCollectionView(with color:UIColor,
                                   collectionViewLayout:UICollectionViewLayout
                                   ) -> CollectionView {
