@@ -11,6 +11,7 @@ public class TableView: UITableView {
 
     init () {
         super.init(frame: CGRect(), style: .grouped)
+        makeUI()
     }
 
     override init(frame: CGRect, style: UITableView.Style) {
@@ -27,12 +28,11 @@ public class TableView: UITableView {
         rowHeight = UITableView.automaticDimension
         backgroundColor = .clear
         keyboardDismissMode = .onDrag
-        separatorStyle = .none
         cellLayoutMarginsFollowReadableWidth = false
         translatesAutoresizingMaskIntoConstraints = false
         estimatedRowHeight = 50
-        // sectionHeaderHeight = 40
-        // separatorInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: 0)
+        separatorStyle = .none
+        //separatorInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: 0)
         // tableHeaderView = View(height: 1)
     }
 }
