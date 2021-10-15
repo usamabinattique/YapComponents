@@ -13,6 +13,7 @@ Pod::Spec.new do |s|
   s.swift_version         = '5.0'
 
   s.source_files     = 'YAPComponents/Classes/**/*'
+  s.preserve_paths   = 'YAPComponents/Assets/**/*'
 
   s.resource_bundles = {
     'YAPComponents' => [
