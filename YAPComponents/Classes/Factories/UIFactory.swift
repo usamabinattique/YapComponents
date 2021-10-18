@@ -14,11 +14,23 @@ public extension UIFactory {
                         alpha:CGFloat = 1,
                         cornerRadious:CGFloat = 0,
                         borderColor:UIColor = .clear,
-                        borderWidth:CGFloat = 0 ) -> View {
+                        borderWidth:CGFloat = 0 ) -> UIView {
         return View()
             .setAlpha(alpha)
             .setBackgroundColor(color)
             .setCornerRadius(cornerRadious)
+            .setBorder(borderColor, width: borderWidth)
+    }
+}
+
+public extension UIFactory {
+    class func makeCircularView(color:UIColor = .clear,
+                          alpha:CGFloat = 1,
+                          borderColor:UIColor = .clear,
+                          borderWidth:CGFloat = 0) -> UIView {
+        return CircularView()
+            .setAlpha(alpha)
+            .setBackgroundColor(color)
             .setBorder(borderColor, width: borderWidth)
     }
 }

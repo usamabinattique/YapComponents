@@ -56,6 +56,40 @@ public extension UIView {
         
         return self
     }
+
+    @discardableResult func widthEqualToSuperView( multiplier:CGFloat = 1, constant:CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+
+        guard let view = superview else { return self }
+
+        let constraint: NSLayoutConstraint = widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier, constant: constant)
+
+        constraint.priority = priority
+        constraint.isActive = true
+
+        return self
+    }
+
+    @discardableResult func heightEqualToSuperView(multiplier:CGFloat = 1, constant:CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+
+        guard let view = superview else { return self }
+
+        let constraint: NSLayoutConstraint = heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplier, constant: constant)
+
+        constraint.priority = priority
+        constraint.isActive = true
+
+        return self
+    }
+
+    @discardableResult func widthEqualTo(view: UIView, multiplier:CGFloat = 1, constant:CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+
+        let constraint: NSLayoutConstraint = widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier, constant: constant)
+
+        constraint.priority = priority
+        constraint.isActive = true
+
+        return self
+    }
     
     @discardableResult func heightEqualTo(view: UIView, multiplier:CGFloat = 1, constant:CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         
@@ -101,7 +135,7 @@ public extension UIView {
     }
     
     @discardableResult func aspectRatio(_ ratio: CGFloat = 1, _ priority:UILayoutPriority = .required) -> Self {
-        return height(with: .width, ofView: self, multiplier: ratio,priority: priority)
+        return height(with: .width, ofView: self, multiplier: ratio, priority: priority)
     }
 }
 
@@ -113,14 +147,14 @@ public extension UIView {
         return alignCenterWith(superview)
     }
     
-    @discardableResult func centerHorizontallyInSuperview(priority: UILayoutPriority = .required) -> Self {
+    @discardableResult func centerHorizontallyInSuperview(constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         guard let superview = superview else { return self }
-        return horizontallyCenterWith(superview)
+        return horizontallyCenterWith(superview, constant: constant, priority: priority)
     }
     
-    @discardableResult func centerVerticallyInSuperview(priority: UILayoutPriority = .required) -> Self {
+    @discardableResult func centerVerticallyInSuperview(constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         guard let superview = superview else { return self }
-        return verticallyCenterWith(superview)
+        return verticallyCenterWith(superview, constant: constant, priority: priority)
     }
     
     @discardableResult func alignEdgeWithSuperview(_ edge: YAPLayoutEdge, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {

@@ -8,17 +8,6 @@
 import UIKit
 
 public class View: UIView {
-
-    convenience init(width value: CGFloat) {
-        self.init()
-        widthAnchor.constraint(equalToConstant: value).isActive = true
-    }
-
-    convenience init(height value: CGFloat) {
-        self.init()
-        heightAnchor.constraint(equalToConstant: value).isActive = true
-    }
-
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         makeUI()
@@ -41,6 +30,13 @@ public class View: UIView {
 
     func getCenter() -> CGPoint {
         return convert(center, from: superview)
+    }
+}
+
+public class CircularView:View {
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = frame.size.height / 2
     }
 }
 
