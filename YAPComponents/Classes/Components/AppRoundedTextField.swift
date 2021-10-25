@@ -34,6 +34,7 @@ public extension UIFactory {
         textField.validation = validation ?? .neutral
         textField.displaysIcon = displaysIcon
         textField.returnKeyType = returnKeyType
+        textField.autocapitalizationType = autocapitalizationType
         textField.delegate = delegate
         textField.autocorrectionType = autocorrectionType
         textField.keyboardType = keyboardType

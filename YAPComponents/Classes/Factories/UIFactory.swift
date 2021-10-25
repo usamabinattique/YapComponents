@@ -88,6 +88,7 @@ public extension UIFactory {
             .setTintColor(tintColor)
             .setContentMode(contentMode)
             .setImage(image, rendringMode: rendringMode)
+            .setBackgroundColor(.clear)
     }
 }
 

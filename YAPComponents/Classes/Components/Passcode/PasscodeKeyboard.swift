@@ -14,7 +14,7 @@ public extension UIFactory {
                                      backImage:UIImage? = nil) -> PasscodeKeyboard {
         let keyboard = PasscodeKeyboard()
         keyboard.font = font
-        keyboard.biomatryButton.setImage(biomatryImage, for: .normal)
+        keyboard.biomatryButton.setImage(biomatryImage?.asTemplate, for: .normal)
         keyboard.backButton.setImage(backImage, for: .normal)
         return keyboard
     }
@@ -34,6 +34,7 @@ open class PasscodeKeyboard: UIView {
         nine.themeColor = themeColor
         zero.themeColor = themeColor
         backButton.tintColor = themeColor
+        biomatryButton.tintColor = themeColor
     }}
     
     open var font: UIFont = UIFont.systemFont(ofSize: 22) { didSet {
@@ -86,6 +87,7 @@ open class PasscodeKeyboard: UIView {
         let button = UIButton()
         button.alpha = 0
         button.isEnabled = false
+        button.imageEdgeInsets = UIEdgeInsets.init(top: 6, left: 8, bottom: 6, right: 8)
         ///let type = BiometricsManager().deviceBiometryType
         //var imageName: String = "icon_touch_id" //""
         ///if case BiometryType.faceID = type { imageName = "icon_face_id"} else { imageName = "icon_touch_id" }

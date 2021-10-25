@@ -149,17 +149,28 @@ public extension UIView {
     
     @discardableResult func centerHorizontallyInSuperview(constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         guard let superview = superview else { return self }
-        return horizontallyCenterWith(superview, constant: constant, priority: priority)
+        return centerHorizontallyWith(superview, constant: constant, priority: priority)
     }
     
     @discardableResult func centerVerticallyInSuperview(constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         guard let superview = superview else { return self }
-        return verticallyCenterWith(superview, constant: constant, priority: priority)
+        return centerVerticallyWith(superview, constant: constant, priority: priority)
     }
     
-    @discardableResult func alignEdgeWithSuperview(_ edge: YAPLayoutEdge, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    @discardableResult func alignEdgeWithSuperview(
+        _ edge: YAPLayoutEdge,
+        _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+        constant: CGFloat = 0,
+        priority: UILayoutPriority = .required,
+        assignTo pointer: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    ) -> Self {
         guard let superview = superview else { return self }
-        return alignEdge(edge, withView: superview, constantModifier, constant: constant, priority: priority)
+        return alignEdge(edge,
+                         withView: superview,
+                         constantModifier,
+                         constant: constant,
+                         priority: priority,
+                         assignTo: pointer)
     }
     
     @discardableResult func alignEdgeWithSuperviewSafeArea(_ edge: YAPLayoutEdge, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
@@ -205,10 +216,10 @@ public extension UIView {
     }
     
     @discardableResult func alignCenterWith(_ view: UIView, priority: UILayoutPriority = .required) -> Self {
-        return horizontallyCenterWith(view).verticallyCenterWith(view)
+        return centerHorizontallyWith(view).centerVerticallyWith(view)
     }
     
-    @discardableResult func horizontallyCenterWith(
+    @discardableResult func centerHorizontallyWith(
         _ view: UIView,
         _ constantModifier: YAPLayoutConstantModifier = .equalTo,
         constant: CGFloat = 0,
@@ -218,12 +229,23 @@ public extension UIView {
         return pinEdge(.centerX, toEdge: .centerX, ofView: view, constantModifier, constant: constant, priority: priority, assignTo: pointer)
     }
     
-    @discardableResult func verticallyCenterWith(_ view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    @discardableResult func centerVerticallyWith(_ view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         return pinEdge(.centerY, toEdge: .centerY, ofView: view, constantModifier, constant: constant, priority: priority)
     }
     
-    @discardableResult func alignEdge(_ edge: YAPLayoutEdge, withView view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required ) -> Self {
-        return pinEdge(edge, toEdge: edge, ofView: view, constantModifier, constant: constant, priority: priority)
+    @discardableResult func alignEdge(_ edge: YAPLayoutEdge,
+                                      withView view: UIView,
+                                      _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+                                      constant: CGFloat = 0,
+                                      priority: UILayoutPriority = .required,
+                                      assignTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil) -> Self {
+        return pinEdge(edge,
+                       toEdge: edge,
+                       ofView: view,
+                       constantModifier,
+                       constant: constant,
+                       priority: priority,
+                       assignTo: pointer)
     }
     
     @discardableResult func pinEdge(
