@@ -218,7 +218,23 @@ public extension UIView {
     @discardableResult func alignCenterWith(_ view: UIView, priority: UILayoutPriority = .required) -> Self {
         return centerHorizontallyWith(view).centerVerticallyWith(view)
     }
-    
+
+    #warning("FIXME: horizontallyCenterWith is depricated raname it with centerHorizontallyWith")
+    @discardableResult func horizontallyCenterWith(
+        _ view: UIView,
+        _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+        constant: CGFloat = 0,
+        priority: UILayoutPriority = .required,
+        assignTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil) -> Self {
+
+        return pinEdge(.centerX, toEdge: .centerX, ofView: view, constantModifier, constant: constant, priority: priority, assignTo: pointer)
+    }
+
+    #warning("FIXME: verticallyCenterWith is depricated raname it with centerVerticallyWith")
+    @discardableResult func verticallyCenterWith(_ view: UIView, _ constantModifier: YAPLayoutConstantModifier = .equalTo, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        return pinEdge(.centerY, toEdge: .centerY, ofView: view, constantModifier, constant: constant, priority: priority)
+    }
+
     @discardableResult func centerHorizontallyWith(
         _ view: UIView,
         _ constantModifier: YAPLayoutConstantModifier = .equalTo,
