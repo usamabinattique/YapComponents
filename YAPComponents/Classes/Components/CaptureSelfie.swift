@@ -73,7 +73,7 @@ public class CaptureSelfie: UIView {
         viewDidLoad()
     }
 
-    public class func getScanner(resultsHandler: @escaping (_ number: UIImage?) -> Void?) -> UIView {
+    public class func getScanner(resultsHandler: @escaping (_ number: UIImage?) -> Void?) -> CaptureSelfie {
         let viewScanner = CaptureSelfie(resultsHandler: resultsHandler)
         return viewScanner
     }
