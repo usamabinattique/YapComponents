@@ -87,6 +87,13 @@ public extension UIView {
         addSubview(view)
         return self
     }
+
+    @discardableResult func addSub(views: [UIView]) -> Self {
+        for index in 0..<views.count {
+            addSubview(views[index])
+        }
+        return self
+    }
     
     @discardableResult func addToSuper(view:UIView) -> Self {
         view.addSubview(self)
