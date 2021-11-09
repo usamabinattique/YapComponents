@@ -46,7 +46,7 @@ public class CaptureSelfie: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.text = "Align your face in the center of the circule and press the button"
+        label.text = "Align your face in the center of the circle, and press the button"
         label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = .white
