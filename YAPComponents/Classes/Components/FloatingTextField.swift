@@ -84,7 +84,7 @@ extension FloatingTextField {
     }
 
     private func rect(forBounds bounds: CGRect) -> CGRect {
-        let rect = CGRect(x: bounds.origin.x + 1, y: bounds.origin.y + placeholderLabel.frame.size.height, width: bounds.size.width - 2, height:bounds.size.height - placeholderLabel.frame.size.height - 1)
+        let rect = CGRect(x: bounds.origin.x + 1, y: bounds.origin.y + placeholderLabel.frame.size.height, width: bounds.size.width - 35, height:bounds.size.height - placeholderLabel.frame.size.height - 1)
         return rect
     }
 }
