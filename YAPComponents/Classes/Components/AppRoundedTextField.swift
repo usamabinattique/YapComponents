@@ -105,7 +105,7 @@ public class AppRoundedTextField: UITextField {
         view.layer.zPosition = -1
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(becomeFirstResponder)))
         view.layer.borderWidth = 1.6
-        view.layer.borderColor = bgColor.cgColor
+        // view.layer.borderColor = bgColor.cgColor
         return view
     }()
         

@@ -25,7 +25,7 @@ public extension UIView {
         return self
     }
     
-    @discardableResult func setBorder(width:CGFloat, color:UIColor) -> Self {
+    @discardableResult func setBorder(width:CGFloat, color:UIColor = .clear) -> Self {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
         return self

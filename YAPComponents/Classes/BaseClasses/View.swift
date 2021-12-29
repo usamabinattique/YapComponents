@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class View: UIView {
+open class View: UIView {
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         makeUI()
