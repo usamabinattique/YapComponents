@@ -11,6 +11,39 @@ import UIKit
 
 public class UINavigationControllerFactory {
     
+    public class func createAppThemedNavigationController(root viewController: UIViewController? = nil, themeColor: UIColor, font: UIFont) -> UINavigationController {
+        
+        var navigation: UINavigationController!
+        if let root = viewController {
+            navigation = UINavigationController(rootViewController: root)
+        } else {
+            navigation = UINavigationController()
+        }
+        navigation.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor:themeColor]
+        navigation.modalPresentationStyle = .fullScreen
+        navigation.navigationBar.barTintColor = themeColor
+        navigation.interactivePopGestureRecognizer?.isEnabled = false
+        navigation.navigationBar.isTranslucent = false
+        navigation.navigationBar.isOpaque = true
+        navigation.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigation.navigationBar.shadowImage = UIImage()
+        navigation.setNavigationBarHidden(false, animated: true)
+        
+        if #available(iOS 15, *) {
+            let textAttributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: themeColor]
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.titleTextAttributes = textAttributes
+            appearance.backgroundColor = UIColor.white // UIColor(red: 0.0/255.0, green: 125/255.0, blue: 0.0/255.0, alpha: 1.0)
+            appearance.shadowColor = .clear  //removing navigationbar 1 px bottom border.
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
+        
+        
+        return navigation
+    }
+    
     public class func createTransparentNavigationBarNavigationController(rootViewController: UIViewController, barStyle: UIBarStyle? = .default ) -> UINavigationController {
         let nav = UINavigationController(rootViewController: rootViewController)
         nav.navigationBar.tintColor = .blue ///.primary
