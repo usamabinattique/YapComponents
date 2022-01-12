@@ -160,7 +160,7 @@ public extension UIView {
 }
 
 // MARK: View + Shimmer layer
-/*
+
 public extension UIView {
     var isShimmerOn: Bool {
         get { return shimmerable }
@@ -179,9 +179,11 @@ public extension UIView {
     }
     
    
-    func startShimmeringEffect(light:CGColor, alpha:CGColor) {
-        //let light = UIColor.greyLight.cgColor
-        //let alpha = UIColor.grey.cgColor
+    func startShimmeringEffect() {
+//        let light = UIColor(red: 218, green: 224, blue: 240, alpha: 1.0)
+//        let alpha = UIColor(red: 201, green: 200, blue: 216, alpha: 1.0)
+        let light = UIColor.gray.cgColor
+        let alpha = UIColor.lightGray.cgColor
         let gradient = CAGradientLayer()
         gradient.frame = CGRect(x: 0, y: 0, width:self.bounds.size.width, height: self.bounds.size.height)
         gradient.colors = [light, alpha, alpha, light]
@@ -205,8 +207,8 @@ public extension UIView {
         gradient.add(animation, forKey: "shimmer")
     
         addObserver(self, forKeyPath: "bounds", options: .new, context: nil)
+        
     }
-    
     func stopShimmeringEffect() {
         if let gradientLayer =  self.layer.sublayers?.first(where: { (layer) -> Bool in
             return layer.isKind(of: CAGradientLayer.self)
@@ -225,7 +227,7 @@ public extension UIView {
             gradientLayer.frame = CGRect(x:0 , y: 0, width: self.bounds.size.width, height: self.bounds.size.height)
         }
     }
-} */
+}
 
 public extension UIView {
     func layoutAllSuperViews() {
