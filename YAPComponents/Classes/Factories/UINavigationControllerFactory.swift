@@ -21,7 +21,7 @@ public class UINavigationControllerFactory {
         }
         navigation.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor:themeColor]
         navigation.modalPresentationStyle = .fullScreen
-        navigation.navigationBar.barTintColor = themeColor
+        
         navigation.interactivePopGestureRecognizer?.isEnabled = false
         navigation.navigationBar.isTranslucent = false
         navigation.navigationBar.isOpaque = true
@@ -38,6 +38,8 @@ public class UINavigationControllerFactory {
             appearance.shadowColor = .clear  //removing navigationbar 1 px bottom border.
             UINavigationBar.appearance().standardAppearance = appearance
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        } else {
+            navigation.navigationBar.barTintColor = .white
         }
         
         
