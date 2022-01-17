@@ -98,7 +98,7 @@ private extension AppDatePickerView {
         let cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.backgroundColor = .clear
-        cancelButton.setTitle("common_button_cancel"/*.localized*/, for: .normal)
+        cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.setTitleColor(.blue /*.primaryDark*/, for: .normal)
         cancelButton.titleLabel?.font = .systemFont(ofSize: 16)
         if let cancel = cancel {
@@ -112,7 +112,7 @@ private extension AppDatePickerView {
         let doneButton = UIButton()
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.backgroundColor = .clear
-        doneButton.setTitle("common_button_done"/*.localized*/, for: .normal)
+        doneButton.setTitle("Done", for: .normal)
         doneButton.setTitleColor(.blue /*.primaryDark*/, for: .normal)
         doneButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         if let done = done {

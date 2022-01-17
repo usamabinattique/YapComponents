@@ -78,7 +78,7 @@ public class ToolBaar:UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .clear
-        button.setTitle("common_button_done"/*.localized*/, for: .normal)
+        button.setTitle("Done"/*.localized*/, for: .normal)
         button.setTitleColor(.blue /*.primaryDark*/, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         return button
@@ -88,7 +88,7 @@ public class ToolBaar:UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .clear
-        button.setTitle("common_button_cancel"/*.localized*/, for: .normal)
+        button.setTitle("Cancel"/*.localized*/, for: .normal)
         button.setTitleColor(.blue/*.primaryDark*/, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
         return button
