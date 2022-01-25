@@ -12,7 +12,7 @@ public class YAPCheckBox: UIControl {
     
     // MARK: Views
     
-    private lazy var imageView: UIImageView = {
+    public lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.isHidden = true
