@@ -6,7 +6,7 @@
 //  Copyright © 2019 YAP. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class YAPCheckBox: UIControl {
     
@@ -23,7 +23,8 @@ public class YAPCheckBox: UIControl {
     
     // MARK: Properties
     
-    public var fillColor: UIColor = .blue
+    
+    public var fillColor: UIColor = UIColor.hexStringToUIColor(hex: "#5E35B1") // primary //.blue
     public var checkedWithAnimation = true
     
     public var checked: Bool = false {
