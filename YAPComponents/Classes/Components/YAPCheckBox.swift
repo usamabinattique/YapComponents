@@ -24,10 +24,11 @@ public class YAPCheckBox: UIControl {
     // MARK: Properties
     
     public var fillColor: UIColor = .blue
+    public var checkedWithAnimation = true
     
     public var checked: Bool = false {
         didSet {
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: checkedWithAnimation ? 0.3 : 0.0, animations: {
                 self.backgroundColor = self.checked ? self.fillColor : .clear
                 self.layer.borderColor = self.checked ? UIColor.clear.cgColor : UIColor.gray.cgColor
                 self.imageView.isHidden = !self.checked
