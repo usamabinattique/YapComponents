@@ -70,19 +70,19 @@ open class AppTextField: UITextField {
         }
     }
     
-    public var textFieldColor: UIColor = .darkGray {
+    public var textFieldColor: UIColor? {
         didSet {
             textColor = textFieldColor
         }
     }
     
-    public var bottomBarColor : UIColor = .gray {
+    public var bottomBarColor : UIColor? {
         didSet {
             bottomBar.backgroundColor = bottomBarColor
         }
     }
     
-    public var titleColor: UIColor = .darkGray {
+    public var titleColor: UIColor? {
         didSet {
             title.textColor = titleColor
         }
