@@ -94,6 +94,8 @@ public class OnBoardingProgressView: UIView {
     
     fileprivate lazy var isCompleted: Bool = false
     
+    public var animationCompleted: (() ->Void)?
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -194,6 +196,7 @@ extension OnBoardingProgressView {
         }) { (_) in
             self.backButton.isHidden = true
             self.progressView.isHidden = true
+            self.animationCompleted?()
         }
     }
     

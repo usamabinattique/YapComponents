@@ -6,13 +6,13 @@
 //  Copyright © 2019 YAP. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class YAPCheckBox: UIControl {
     
     // MARK: Views
     
-    private lazy var imageView: UIImageView = {
+    public lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.isHidden = true
@@ -23,11 +23,13 @@ public class YAPCheckBox: UIControl {
     
     // MARK: Properties
     
-    public var fillColor: UIColor = .blue
+    
+    public var fillColor: UIColor = UIColor.hexStringToUIColor(hex: "#5E35B1") // primary //.blue
+    public var checkedWithAnimation = true
     
     public var checked: Bool = false {
         didSet {
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: checkedWithAnimation ? 0.3 : 0.0, animations: {
                 self.backgroundColor = self.checked ? self.fillColor : .clear
                 self.layer.borderColor = self.checked ? UIColor.clear.cgColor : UIColor.gray.cgColor
                 self.imageView.isHidden = !self.checked

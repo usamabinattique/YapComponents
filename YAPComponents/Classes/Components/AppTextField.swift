@@ -10,7 +10,7 @@ import UIKit
 open class AppTextField: UITextField {
     // MARK: - SubViews
     
-    fileprivate lazy var title: UILabel = {
+    public lazy var title: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = titleColor
@@ -26,7 +26,7 @@ open class AppTextField: UITextField {
         return view
     }()
     
-    fileprivate lazy var error: UILabel = {
+    public lazy var error: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.adjustsFontSizeToFitWidth = true
@@ -134,12 +134,29 @@ open class AppTextField: UITextField {
         }
     }
     
+    public var primaryColor: UIColor = UIColor(red: 0.369, green: 0.208, blue: 0.694, alpha: 1)
+    
+    
+    
     public override var placeholder: String? {
         didSet {
             guard  let `placeholder` = placeholder else { return }
             let attributedPlaceholder = NSMutableAttributedString(string: placeholder)
             attributedPlaceholder.addAttributes([.foregroundColor: self.placeholderColor], range: NSRange(location: 0, length: placeholder.count))
             self.attributedPlaceholder = attributedPlaceholder
+        }
+    }
+    public var invalidInputImage: UIImage? = UIImage.init(named: "icon_invalid")
+    public var validInputImage: UIImage? = UIImage.init(named: "icon_check")
+    
+    public var validationState: AppTextField.ValidationState = .normal {
+        didSet {
+           // guard oldValue != validationState else { return }
+            stateImage.isHidden = validationState == .normal
+            stateImage.image = validationState == .valid ? validInputImage : validationState == .invalid ? invalidInputImage : nil
+            stateImage.tintColor = validationState == .valid ? primaryColor : validationState == .invalid ? .red : .clear
+            bottomBar.backgroundColor = validationState == .invalid ? .red : isFirstResponder ? primaryColor : UIColor.gray
+            error.isHidden = validationState != .invalid
         }
     }
     
