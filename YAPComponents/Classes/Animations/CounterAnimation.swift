@@ -24,9 +24,15 @@ public extension UILabel {
         guard var rect = boundingRect(forCharacterRange: range) else { return }
         guard let attributes = attributedText?.attributes(at: range.location, effectiveRange: nil) else { return }
         
-//        print(UIScreen.main.bounds.width)
-        let padding: CGFloat = UIScreen.main.bounds.width > 400 ? 148 : 98
+        print(UIScreen.main.bounds.width)
+//        let padding: CGFloat = UIScreen.main.bounds.width > 400 ? 148 : 98
+//        let padding: CGFloat = UIScreen.main.bounds.width > 400 ? 125 : 75
+        let difference = (UIScreen.main.bounds.width - self.intrinsicContentSize.width)
+        let calculatedLowerPadding = (difference + CGFloat(range.location)) - 42
+        let calculatedHigherPadding =  (difference + CGFloat(range.location)) + 9
+        let padding: CGFloat = UIScreen.main.bounds.width > 400 ? calculatedHigherPadding : calculatedLowerPadding //75
         rect.origin = CGPoint(x: rect.origin.x + padding, y: rect.origin.y)
+        
         let view = UIView(frame: rect)
         view.clipsToBounds = true
         addSubview(view)
