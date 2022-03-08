@@ -99,3 +99,19 @@ public extension UIImage {
     }
     
 }
+
+public extension UIDeviceOrientation {
+    func exifOrientation() -> Int {
+        switch self {
+        case .portraitUpsideDown:
+            return 8
+        case .landscapeLeft:
+            return 3
+        case .landscapeRight:
+            return 1
+        default:
+            return 6
+        }
+    }
+}
+
