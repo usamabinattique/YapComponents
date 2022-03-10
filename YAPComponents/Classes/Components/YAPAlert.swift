@@ -202,6 +202,10 @@ public extension YAPAlert {
         }
     }
     
+    func cancelAnimations() {
+        self.layer.removeAllAnimations()
+    }
+    
     private func showWithAnimation(inView view: UIView, type: YAPAlert.AlertType, text: String, from direction: YAPAlert.AlertDirection = .top, autoHides: Bool = true, autoHideDuration: TimeInterval = 5) {
         self.alertType = type
         self.text = text

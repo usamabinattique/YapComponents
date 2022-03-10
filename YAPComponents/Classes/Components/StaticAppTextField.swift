@@ -15,12 +15,12 @@ import UIKit
 open class StaticAppTextField: UIView {
 
     // MARK: - SubViews
-    lazy var titleLabel = UIFactory.makeLabel()
-    lazy var textLabel = UIFactory.makeLabel()
-    lazy var editButton = UIFactory.makeButton(with: .regular, backgroundColor: .clear, title: "common_button_edit".localized)
-    lazy var fieldIcon = UIFactory.makeImageView()
-    lazy var textButtonStackView = UIStackViewFactory.createStackView(with: .horizontal, alignment: .bottom, distribution: .fill, spacing: 5, arrangedSubviews: [textLabel, fieldIcon])
-    lazy var bottomBorder = UIView()
+    public lazy var titleLabel = UIFactory.makeLabel()
+    public lazy var textLabel = UIFactory.makeLabel()
+    public lazy var editButton = UIFactory.makeButton(with: UIFont.systemFont(ofSize: 16.0), backgroundColor: .clear, title: "Edit")
+    public lazy var fieldIcon = UIFactory.makeImageView()
+    public lazy var textButtonStackView = UIStackViewFactory.createStackView(with: .horizontal, alignment: .bottom, distribution: .fill, spacing: 5, arrangedSubviews: [textLabel, fieldIcon])
+    public lazy var bottomBorder = UIView()
     lazy var contentStackView = UIStackViewFactory.createStackView(with: .vertical, alignment: .fill, distribution: .fill, spacing: 5, arrangedSubviews: [titleLabel, textButtonStackView, bottomBorder])
     
     
@@ -58,7 +58,7 @@ open class StaticAppTextField: UIView {
         }
     }
     
-    var shouldShowIcon: Bool = false {
+    public var shouldShowIcon: Bool = false {
         didSet {
             fieldIcon.isHidden = !shouldShowIcon
         }
@@ -96,12 +96,12 @@ open class StaticAppTextField: UIView {
 private extension StaticAppTextField {
     func setupViews() {
         addSubview(contentStackView)
-        titleLabel.textColor = UIColor.hexStringToUIColor(hex: "9391B1")//UIColor.greyDark //9391B1
-        bottomBorder.backgroundColor = UIColor.hexStringToUIColor(hex: "DAE0F0")//.greyLight //DAE0F0
-        editButton.setContentHuggingPriority(.required, for: .horizontal)
-        editButton.contentHorizontalAlignment = .right
-        editButton.setTitleColor(UIColor.hexStringToUIColor(hex: "5E35B1"), for: .normal)
-        editButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .regular)
+        titleLabel.textColor = UIColor.hexStringToUIColor(hex: "9391B1")
+        bottomBorder.backgroundColor = UIColor.hexStringToUIColor(hex: "DAE0F0")
+        editButton.setContentHuggingPriority(UILayoutPriority.required, for: NSLayoutConstraint.Axis.horizontal)
+        editButton.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.right
+        editButton.setTitleColor(UIColor.hexStringToUIColor(hex: "5E35B1"), for: UIControl.State.normal)
+        editButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
     }
     
     func setupConstraints() {
