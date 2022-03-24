@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 //import RxSwift
 //import RxCocoa
 
@@ -182,8 +183,9 @@ public extension UIView {
     func startShimmeringEffect() {
 //        let light = UIColor(red: 218, green: 224, blue: 240, alpha: 1.0)
 //        let alpha = UIColor(red: 201, green: 200, blue: 216, alpha: 1.0)
-        let light = UIColor.lightGray.cgColor
-        let alpha = UIColor.gray.cgColor
+        
+        let light = UIColor(rgb: 0xE8ECF6).cgColor //UIColor.hexStringToUIColor(hex: "#E8ECF6") //UIColor.lightGray.cgColor
+        let alpha = UIColor(rgb: 0xE8ECF6).cgColor //UIColor.gray.cgColor
         let gradient = CAGradientLayer()
         gradient.frame = CGRect(x: 0, y: 0, width:self.bounds.size.width, height: self.bounds.size.height)
         gradient.colors = [light, alpha, alpha, light]
