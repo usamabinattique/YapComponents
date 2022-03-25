@@ -17,6 +17,8 @@ public extension UIFactory {
         validImage:UIImage? = nil,
         inValidImage:UIImage? = nil,
         leftIcon:UIImage? = nil,
+        dropDownIcon:UIImage? = nil,
+        displaysDropDownIcon: Bool = false,
         displaysIcon:Bool = false,
         returnKeyType:UIReturnKeyType = .default,
         autocorrectionType:UITextAutocorrectionType = .default,
@@ -31,8 +33,10 @@ public extension UIFactory {
         textField.validInputImage = validImage?.withRenderingMode(.alwaysTemplate)
         textField.invalidInputImage = inValidImage?.withRenderingMode(.alwaysTemplate)
         textField.leftIcon.setImage(leftIcon, for: .normal)
+        textField.dropDownIcon.setImage(dropDownIcon, for: .normal)
         textField.validation = validation ?? .neutral
         textField.displaysIcon = displaysIcon
+        textField.displaysDropDownIcon = displaysDropDownIcon
         textField.returnKeyType = returnKeyType
         textField.autocapitalizationType = autocapitalizationType
         textField.delegate = delegate
@@ -92,6 +96,13 @@ public class AppRoundedTextField: UITextField {
         return icon
     }()
     
+    public lazy var dropDownIcon: UIButton = {
+        let dropDown = UIButton()
+        dropDown.isHidden = true
+        dropDown.translatesAutoresizingMaskIntoConstraints = false
+        return dropDown
+    }()
+    
     fileprivate lazy var validationImage: UIImageView = {
         let validationImage = UIImageView()
         validationImage.contentMode = .scaleAspectFit
@@ -115,6 +126,9 @@ public class AppRoundedTextField: UITextField {
     public var validInputImage: UIImage? = UIImage() //.init(named: "icon_check", in: yapKitBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     public var displaysIcon: Bool = false { didSet {
         leftIcon.isHidden = !displaysIcon
+    }}
+    public var displaysDropDownIcon: Bool = false { didSet {
+        dropDownIcon.isHidden = !displaysDropDownIcon
     }}
     
     public var validation: AppRoundedTextFieldValidation = .neutral { didSet {
@@ -186,7 +200,12 @@ extension AppRoundedTextField {
     }
     
     private func rect(forBounds bounds: CGRect) -> CGRect {
-        return displaysIcon ? CGRect(x: bounds.origin.x+60, y: bounds.origin.y, width: bounds.size.width - 120, height: bounds.size.height - 22) : CGRect(x: bounds.origin.x+20, y: bounds.origin.y, width: bounds.size.width - 80, height: bounds.size.height - 22)
+        if displaysIcon && displaysDropDownIcon {
+            return CGRect(x: bounds.origin.x+72, y: bounds.origin.y, width: bounds.size.width - 120, height: bounds.size.height - 22) }
+        else if displaysIcon {
+            return CGRect(x: bounds.origin.x+60, y: bounds.origin.y, width: bounds.size.width - 120, height: bounds.size.height - 22) }
+        else {
+            return CGRect(x: bounds.origin.x+20, y: bounds.origin.y, width: bounds.size.width - 80, height: bounds.size.height - 22) }
     }
 }
 
@@ -201,6 +220,7 @@ fileprivate extension AppRoundedTextField {
         addSubview(leftIcon)
         addSubview(validationImage)
         addSubview(errorLabel)
+        addSubview(dropDownIcon)
     }
     
     func setupConstraints() {
@@ -232,7 +252,14 @@ fileprivate extension AppRoundedTextField {
             errorLabel.heightAnchor.constraint(equalToConstant: 20)
         ]
         
-        NSLayoutConstraint.activate(iconImageConstraits + validationImageConstraits + backgroundViewConstraints + errorLabelConstraints)
+        let dropDownImageConstraits = [
+            dropDownIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 51),
+            dropDownIcon.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
+            dropDownIcon.widthAnchor.constraint(equalToConstant: 16),
+            dropDownIcon.heightAnchor.constraint(equalToConstant: 16)
+        ]
+        
+        NSLayoutConstraint.activate(iconImageConstraits + dropDownImageConstraits + validationImageConstraits + backgroundViewConstraints + errorLabelConstraints)
     }
     
     func render() {

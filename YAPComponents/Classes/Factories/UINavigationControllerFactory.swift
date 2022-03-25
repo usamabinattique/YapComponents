@@ -59,7 +59,7 @@ public class UINavigationControllerFactory {
         return nav
     }
     
-    public class func createOpaqueNavigationBarNavigationController(rootViewController: UIViewController, themed: Bool = false, barStyle: UIBarStyle? = .default ) -> UINavigationController {
+    public class func createOpaqueNavigationBarNavigationController(rootViewController: UIViewController, themed: Bool = false, barStyle: UIBarStyle? = .default, themeColor: UIColor = UIColor.hexStringToUIColor(hex: "5E35B1"), font: UIFont = .systemFont(ofSize: 16.0)) -> UINavigationController {
         let nav = UINavigationController(rootViewController: rootViewController)
         nav.navigationBar.tintColor = themed ? .white : .blue ///.primary
         nav.navigationBar.barTintColor = themed ? /*.primary*/ .blue : .white
@@ -68,6 +68,20 @@ public class UINavigationControllerFactory {
         nav.navigationBar.isOpaque = true
         nav.navigationBar.isHidden = false
         nav.modalPresentationStyle = .fullScreen
+        
+        if #available(iOS 15, *) {
+            let textAttributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: themeColor]
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.titleTextAttributes = textAttributes
+            appearance.backgroundColor = UIColor.white // UIColor(red: 0.0/255.0, green: 125/255.0, blue: 0.0/255.0, alpha: 1.0)
+            appearance.shadowColor = .clear  //removing navigationbar 1 px bottom border.
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        } else {
+            nav.navigationBar.barTintColor = .white
+        }
+        
         //nav.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.regular, NSAttributedString.Key.foregroundColor: themed ? UIColor.white : UIColor.primaryDark]
         nav.navigationBar.barStyle = barStyle ?? .default
         return nav
