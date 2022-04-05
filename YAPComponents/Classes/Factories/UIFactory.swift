@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 public class UIFactory {}
 
 public extension UIFactory {
@@ -132,4 +133,76 @@ public extension UIFactory {
         button.setTitle(title, for: .normal)
         return button
     }
+}
+
+public extension UIFactory {
+    class func makePaddingLabel (
+        font:UIFont = UIFont.systemFont(ofSize: 16),
+        alignment: NSTextAlignment = .left,
+        numberOfLines: Int = 1,
+        lineBreakMode: NSLineBreakMode = .byTruncatingTail,
+        text: String? = nil,
+        alpha: CGFloat = 1.0,
+        adjustFontSize: Bool = false
+    ) -> PaddedLabel {
+        
+        let label = PaddedLabel()
+            .setFont(font: font)
+            .setTextAlligned(alignment)
+            .setNumberOfLines(numberOfLines)
+            .setLineBreakMode(lineBreakMode)
+            .setText(text ?? "")
+            .setAlpha(alpha)
+            .setTranslatesAutoresizingMask(false)
+            .setAdjustsFontSizeToFitWidth(adjustFontSize)
+        
+        return label
+    }
+}
+
+public class PaddedLabel: UILabel {
+    
+    public var topInset: CGFloat = 5.0
+    public var bottomInset: CGFloat = 5.0
+    public var leftInset: CGFloat = 7.0
+    public var rightInset: CGFloat = 7.0
+    
+    var edgeInset: CGFloat = 0 {
+        didSet {
+            topInset = edgeInset
+            bottomInset = edgeInset
+            leftInset = edgeInset
+            rightInset = edgeInset
+        }
+    }
+    
+    public override func drawText(in rect: CGRect) {
+        let insets = UIEdgeInsets.init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
+        super.drawText(in: rect.inset(by: insets))
+    }
+    
+    public override var intrinsicContentSize: CGSize {
+        let size = super.intrinsicContentSize
+        return CGSize(width: size.width + leftInset + rightInset,
+                      height: size.height + topInset + bottomInset)
+    }
+    
+    public override func sizeToFit() {
+        super.sizeThatFits(intrinsicContentSize)
+    }
+}
+
+public extension UIFactory {
+    class func createGifImageView(mode: UIImageView.ContentMode = .scaleAspectFill, image: UIImage? = nil, tintColor: UIColor = .clear) -> GifImageView {
+        let imageView = GifImageView()
+        imageView.contentMode = mode
+        imageView.tintColor = tintColor
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = image
+        return imageView
+    }
+}
+
+public class GifImageView: UIImageView{
+    
 }

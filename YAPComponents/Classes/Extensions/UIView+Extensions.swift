@@ -134,6 +134,26 @@ public extension UIView {
         layer.masksToBounds = false
         clipsToBounds = true
     }
+    
+    func applyShadow() {
+        self.layer.shadowRadius = self.frame.width / 2
+        self.layer.shadowOpacity = 0.2
+        self.layer.shadowOffset = .zero
+        self.layer.shadowColor = UIColor.gray.cgColor //UIColor.grey.cgColor
+        self.layer.masksToBounds = false
+        self.backgroundColor = .white
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+    }
+    
+    func applyDarkShadow() {
+        layoutIfNeeded()
+        let shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.frame.height/2)
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowPath = shadowPath.cgPath
+    }
 }
 
 // MARK: Alert
