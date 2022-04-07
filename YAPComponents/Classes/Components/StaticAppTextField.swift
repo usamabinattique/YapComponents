@@ -64,7 +64,7 @@ open class StaticAppTextField: UIView {
         }
     }
     
-    var isEditable: Bool = false {
+    public var isEditable: Bool = false {
         didSet {
             if !textButtonStackView.subviews.contains(editButton) && isEditable {
                 textButtonStackView.addArrangedSubview(editButton)
