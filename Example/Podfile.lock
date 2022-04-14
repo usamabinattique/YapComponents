@@ -1,16 +1,42 @@
 PODS:
+  - PhoneNumberKit (3.3.4):
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.3.4)
+    - PhoneNumberKit/UIKit (= 3.3.4)
+  - PhoneNumberKit/PhoneNumberKitCore (3.3.4)
+  - PhoneNumberKit/UIKit (3.3.4):
+    - PhoneNumberKit/PhoneNumberKitCore
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
   - YAPComponents (0.1.0)
 
 DEPENDENCIES:
+  - PhoneNumberKit (~> 3.0)
+  - RxCocoa (~> 6.0)
+  - RxSwift (~> 6.0)
   - YAPComponents (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - PhoneNumberKit
+    - RxCocoa
+    - RxRelay
+    - RxSwift
 
 EXTERNAL SOURCES:
   YAPComponents:
     :path: "../"
 
 SPEC CHECKSUMS:
-  YAPComponents: 973a1d656d519b7de5e0f2bbc5bdba4466014b60
+  PhoneNumberKit: 441e8b26ec88d598e3591de9061eff18f5dd12e8
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  YAPComponents: 06fc14e894e5d686e147a822dec5b99a40baa58b
 
-PODFILE CHECKSUM: af1c2f1770b2734ea565a3dcef256a9cce12e74c
+PODFILE CHECKSUM: 17e6d7b27d65795661f815dfaf77ce4335adfa65
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
