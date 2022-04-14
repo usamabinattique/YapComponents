@@ -8,12 +8,6 @@ target 'YAPComponents_Example' do
   target 'YAPComponents_Tests' do
     inherit! :search_paths
 
-	#MARK: Reactive
-  	pod 'RxCocoa', '~> 6.0'
-pod 'RxSwift', '~> 6.0'
-
-#MARK: Utilities
-  pod 'PhoneNumberKit', '~> 3.0'
     
   end
 end
