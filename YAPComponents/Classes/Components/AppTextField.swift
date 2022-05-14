@@ -146,15 +146,48 @@ open class AppTextField: UITextField {
             self.attributedPlaceholder = attributedPlaceholder
         }
     }
-    public var invalidInputImage: UIImage? = UIImage.init(named: "icon_invalid")
-    public var validInputImage: UIImage? = UIImage.init(named: "icon_check")
     
-    public var validationState: AppTextField.ValidationState = .normal {
+    public var invalidImage : UIImage? {
+        didSet {
+            guard let invalidImage = invalidImage else { return }
+            self.invalidInputImage = invalidImage
+            
+        }
+    }
+    
+    public var validImage : UIImage? {
+        didSet {
+            guard let validImage = validImage else { return }
+            self.validInputImage = validImage
+        }
+    }
+    
+    public var invalidInputImage: UIImage? = UIImage(named: "icon_invalid")
+    public var validInputImage: UIImage? = UIImage(named: "icon_check")
+    
+    public var validationState: AppTextField.ValidationState = .normalA{
         didSet {
            // guard oldValue != validationState else { return }
-            stateImage.isHidden = validationState == .normal
-            stateImage.image = validationState == .valid ? validInputImage : validationState == .invalid ? invalidInputImage : nil
-            stateImage.tintColor = validationState == .valid ? primaryColor : validationState == .invalid ? .red : .clear
+            //stateImage.isHidden = validationState == .normal
+            print(validationState)
+            if validationState == .normal {
+                stateImage.isHidden = true
+                stateImage.tintColor = .clear
+            }
+            else if validationState == .valid {
+                stateImage.isHidden = false
+                stateImage.image = validInputImage
+                stateImage.tintColor = primaryColor
+            }
+            else if validationState == .invalid {
+                stateImage.isHidden = false
+                stateImage.image = invalidInputImage
+                stateImage.tintColor = .red
+            }
+            
+//            stateImage.image = validationState == .valid ? validInputImage : validationState == .invalid ? invalidInputImage : nil
+//            stateImage.tintColor = validationState == .valid ? primaryColor : validationState == .invalid ? .red : .clear
+            
             bottomBar.backgroundColor = validationState == .invalid ? .red : isFirstResponder ? primaryColor : UIColor.gray
             error.isHidden = validationState != .invalid
         }
