@@ -165,7 +165,7 @@ open class AppTextField: UITextField {
     public var invalidInputImage: UIImage? = UIImage(named: "icon_invalid")
     public var validInputImage: UIImage? = UIImage(named: "icon_check")
     
-    public var validationState: AppTextField.ValidationState = .normalA{
+    public var validationState: AppTextField.ValidationState = .normal {
         didSet {
            // guard oldValue != validationState else { return }
             //stateImage.isHidden = validationState == .normal
