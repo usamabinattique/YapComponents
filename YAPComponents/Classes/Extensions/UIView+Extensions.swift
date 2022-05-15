@@ -154,6 +154,17 @@ public extension UIView {
         self.layer.shadowOpacity = 0.3
         self.layer.shadowPath = shadowPath.cgPath
     }
+    
+    func addShadowWithCornerRadius(cornerRadius: CGFloat, shadowOffset: CGSize? = nil, shadowColor: UIColor? = nil, shadowRadius: CGFloat? = nil, opacity: Float? = nil) {
+        layer.borderWidth = 1
+        layer.cornerRadius = cornerRadius
+        layer.shadowColor = shadowColor?.cgColor ?? UIColor.black.withAlphaComponent(0.07).cgColor
+        layer.shadowOffset = shadowOffset ?? CGSize.zero
+        layer.shadowOpacity = opacity ?? 1.0
+        layer.shadowRadius = shadowRadius ?? 16.0
+        layer.masksToBounds =  false
+        layer.borderColor = UIColor.lightGray.withAlphaComponent(0.1).cgColor
+    }
 }
 
 // MARK: Alert
@@ -263,4 +274,34 @@ public extension UIView {
         subviews.forEach{ $0.layoutAllSubviews() }
         layoutSubviews()
     }
+}
+
+public extension UIView {
+    
+    ///To generate simple haptic impact on touch with different vibration mode
+    ///- parameter _: .light, .medium, .heavy,  .soft, .rigid
+    func generateImpact(_: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
+        let impactFeedbackgenerator = UIImpactFeedbackGenerator(style: .light)
+        impactFeedbackgenerator.prepare()
+        impactFeedbackgenerator.impactOccurred()
+    }
+    
+    ///To generate simple haptic impact on touch
+    ///- parameter type: .success, .warning, .error
+    func generateSelectionImpact() {
+        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator.selectionChanged()
+    }
+    
+    ///To generate haptic impact on different use cases
+    ///- parameter type: .success, .warning, .error
+     
+    func generateImpact(for type: UINotificationFeedbackGenerator.FeedbackType) {
+        let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+        notificationFeedbackGenerator.prepare()
+        notificationFeedbackGenerator.notificationOccurred(.success)
+        notificationFeedbackGenerator.notificationOccurred(.warning)
+        notificationFeedbackGenerator.notificationOccurred(.error)
+    }
+    
 }
