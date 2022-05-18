@@ -7,14 +7,16 @@
 //
 
 import Foundation
+import UIKit
 
 public class AppRoundedButtonFactory {
     
-    public class func createAppRoundedButton(title: String = String(), backgroundColor: UIColor = .blue /*UIColor.appColor(ofType: .primary)*/, textColor: UIColor =  .white, isEnable: Bool = true, icon: UIImage? = nil) -> AppRoundedButton {
+    public class func createAppRoundedButton(title: String = String(), backgroundColor: UIColor = .blue , font:  UIFont = UIFont.systemFont(ofSize: 12) , textColor: UIColor =  .white, isEnable: Bool = true, icon: UIImage? = nil) -> AppRoundedButton {
         let button = AppRoundedButton()
         button.setTitle(title, for: .normal)
         button.setTitleColor(textColor, for: .normal)
         button.backgroundColor = backgroundColor
+        button.titleLabel?.font = font
         button.translatesAutoresizingMaskIntoConstraints = false
         icon.map { button.icon = $0; button.iconPosition = .right }
         button.isEnabled = isEnable
