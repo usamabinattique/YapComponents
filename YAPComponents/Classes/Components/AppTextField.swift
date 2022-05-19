@@ -169,12 +169,11 @@ open class AppTextField: UITextField {
         didSet {
            // guard oldValue != validationState else { return }
             //stateImage.isHidden = validationState == .normal
-            print(validationState)
+            print("AppTextField Valid State: \(validationState)")
             if validationState == .normal {
                 stateImage.isHidden = true
-                stateImage.tintColor = .clear
             }
-            else if validationState == .valid {
+            else if validationState == .valid  {
                 stateImage.isHidden = false
                 stateImage.image = validInputImage
                 stateImage.tintColor = primaryColor
