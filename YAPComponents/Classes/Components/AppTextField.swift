@@ -62,11 +62,19 @@ open class AppTextField: UITextField {
         return label
     }()
     
+    fileprivate var showValidationError : Bool = true
+    
     // MAKR: - Control properties
     
     public var showsIcon: Bool = false {
         didSet {
             icon.isHidden = !showsIcon
+        }
+    }
+    
+    public var isValidationErrorShow: Bool = false {
+        didSet {
+            showValidationError = isValidationErrorShow
         }
     }
     
@@ -180,19 +188,31 @@ open class AppTextField: UITextField {
             }
             else if validationState == .invalid {
                 stateImage.isHidden = false
-                stateImage.image = invalidInputImage
+                if showValidationError {
+                    stateImage.image = invalidInputImage
+                }
+                else {
+                    stateImage.isHidden = true
+                }
+                
                 stateImage.tintColor = .red
             }
             
 //            stateImage.image = validationState == .valid ? validInputImage : validationState == .invalid ? invalidInputImage : nil
 //            stateImage.tintColor = validationState == .valid ? primaryColor : validationState == .invalid ? .red : .clear
             
-            bottomBar.backgroundColor = validationState == .invalid ? .red : isFirstResponder ? primaryColor : UIColor.gray
+            if showValidationError {
+                bottomBar.backgroundColor = validationState == .invalid ? .red : isFirstResponder ? primaryColor : UIColor.gray
+            }
+            else {
+                bottomBar.backgroundColor = UIColor.gray //validationState == .invalid ? .red : isFirstResponder ? primaryColor : UIColor.gray
+            }
+            
             error.isHidden = validationState != .invalid
         }
     }
     
-    public var animatesTitleOnEditingBegin: Bool = true
+    public var animatesTitleOnEditingBegin: Bool = false
     
     // MARK: Initialization
     
@@ -221,7 +241,7 @@ extension AppTextField {
     open override func becomeFirstResponder() -> Bool {
         title.textColor = .darkGray
         textColor = textFieldColor
-        animateFocus()
+        //animateFocus()
         return super.becomeFirstResponder()
     }
     
