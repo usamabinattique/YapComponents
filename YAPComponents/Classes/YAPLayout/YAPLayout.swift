@@ -137,6 +137,10 @@ public extension UIView {
     @discardableResult func aspectRatio(_ ratio: CGFloat = 1, _ priority:UILayoutPriority = .required) -> Self {
         return height(with: .width, ofView: self, multiplier: ratio, priority: priority)
     }
+    
+    @discardableResult func aspectRatio(ratio: CGFloat = 1, view: UIView, with: YAPLayoutEdge, _ priority:UILayoutPriority = .required) -> Self {
+        return height(with: with, ofView: view, multiplier: ratio, priority: priority)
+    }
 }
 
 // MARK: Constraints with superview
@@ -263,6 +267,23 @@ public extension UIView {
                        priority: priority,
                        assignTo: pointer)
     }
+    
+    
+    @discardableResult func alignEdgeWithSuperView(_ edge: YAPLayoutEdge,
+                                      withView view: UIView,
+                                      _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+                                      constant: CGFloat = 0,
+                                      priority: UILayoutPriority = .required,
+                                      assignTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil) -> Self {
+        return pinEdge(edge,
+                       toEdge: edge,
+                       ofView: view,
+                       constantModifier,
+                       constant: constant,
+                       priority: priority,
+                       assignTo: pointer)
+    }
+    
     
     @discardableResult func pinEdge(
         _ edge1: YAPLayoutEdges,
