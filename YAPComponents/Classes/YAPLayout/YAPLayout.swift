@@ -138,7 +138,7 @@ public extension UIView {
         return height(with: .width, ofView: self, multiplier: ratio, priority: priority)
     }
     
-    @discardableResult func aspectRatio(ratio: CGFloat = 1, view: UIView, with: YAPLayoutEdge, _ priority:UILayoutPriority = .required) -> Self {
+    @discardableResult func aspectRatio(ratio: CGFloat = 1, view: UIView, with: YAPLayoutEdges, _ priority:UILayoutPriority = .required) -> Self {
         return height(with: with, ofView: view, multiplier: ratio, priority: priority)
     }
 }
@@ -269,9 +269,9 @@ public extension UIView {
     }
     
     
-    @discardableResult func alignEdgeWithSuperView(_ edge: YAPLayoutEdge,
+    @discardableResult func alignEdgeWithSuperView(_ edge: YAPLayoutEdges,
                                       withView view: UIView,
-                                      _ constantModifier: YAPLayoutConstantModifier = .equalTo,
+                                      _ constantModifier: YAPLayoutConstantModifiers = .equalTo,
                                       constant: CGFloat = 0,
                                       priority: UILayoutPriority = .required,
                                       assignTo pointer:UnsafeMutablePointer<NSLayoutConstraint?>! = nil) -> Self {
