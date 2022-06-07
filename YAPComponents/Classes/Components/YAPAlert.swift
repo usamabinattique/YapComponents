@@ -20,7 +20,7 @@ open class YAPAlert: UIView {
         return imageView
     }()
     
-    private lazy var alertLabel: UILabel = {
+    public private(set) lazy var alertLabel: UILabel = {
         let label = UIFactory.makeLabel(numberOfLines: 0, lineBreakMode: .byWordWrapping)
         label.textColor = .blue //with: .primary, textStyle: .micro,
         label.setContentHuggingPriority(.init(250), for: .horizontal)
