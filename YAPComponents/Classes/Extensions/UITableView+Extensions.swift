@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Usage:  tableView.scrollPercentage 
 public extension UITableView {
     var scrollPercentage: CGFloat {
         let height = self.contentSize.height - self.frame.size.height

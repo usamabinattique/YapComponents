@@ -19,9 +19,9 @@ import UIKit
 /// }
 public final class FooterLoadingView: UIView {
 
-    let indicator = UIActivityIndicatorView(frame: .zero)
+    public let indicator = UIActivityIndicatorView(frame: .zero)
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         customizeUI(frame: frame)
     }
