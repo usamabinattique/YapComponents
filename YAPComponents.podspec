@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'YAPComponents'
-  s.version          = '0.1.0'
+  s.version          = '1.0.0'
   s.summary          = 'YAP Reusable UI Components'
 
   s.homepage         = 'https://bitbucket.org/mb28/ios-yap-ui-kit/'
